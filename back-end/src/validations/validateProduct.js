@@ -1,9 +1,9 @@
 const joi = require('joi');
 
 const schema = joi.object().keys({
-  name: joi.string().empty(false).required(),
-  price: joi.number().empty(false).required(),
-  urlImage: joi.string().empty(false).required(),
+  name: joi.string().empty(false).required().maxlength(100),
+  price: joi.number().empty(false).required().min(0),
+  urlImage: joi.string().empty(false).required().maxlength(200),
 });
 
 module.exports = (user) => {
