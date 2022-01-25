@@ -1,5 +1,5 @@
 const express = require('express');
-const mainRoute = require('../Routes/mainRoutes');
+const { mainRoute, productsRouter } = require('../Routes');
 require('dotenv').config();
 const error = require('../middlewares/error');
 
@@ -8,6 +8,8 @@ const app = express();
 app.use(express.json());
 
 app.use(mainRoute);
+
+app.use(productsRouter);
 
 app.use(error);
 
