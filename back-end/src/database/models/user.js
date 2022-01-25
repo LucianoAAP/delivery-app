@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   )
 
   User.associate = (models) => {
-    User.hasMany(models.Sale, {foreignKey: 'userId', as: 'sales'})
+    User.hasMany(models.Sale, {foreignKey: 'userId', as: 'purchases'})
 
     User.hasMany(models.Sale, {foreignKey: 'sellerId', as: 'sales'})
   }
