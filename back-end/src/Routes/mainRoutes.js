@@ -1,5 +1,5 @@
-const mainRoute = require('express').Router({ mergeParams: true });
+// const mainRoute = require('express').Router({ mergeParams: true });
 
-mainRoute.use('/');
+// mainRoute.use('/');
 
-module.exports = mainRoute;
+// module.exports = mainRoute;

@@ -1,6 +1,6 @@
 const { Product } = require('../../database/models');
 const { badRequest, conflict } = require('../../Error/ApiError');
-const validateProduct = require('../../validations');
+const { validateProduct } = require('../../validations');
 
 module.exports = async (body) => {
   const error = validateProduct(body);
