@@ -1,5 +1,5 @@
 const express = require('express');
-const { mainRoute } = require('../Routes');
+const mainRoute = require('../Routes/mainRoutes');
 require('dotenv').config();
 const error = require('../middlewares/error');
 
