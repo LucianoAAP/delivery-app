@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const { API_PORT = 3001 } = process.env;
 const app = require('./app');
 
