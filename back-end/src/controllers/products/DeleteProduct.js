@@ -1,7 +1,7 @@
 const { NO_CONTENT } = require('http-status-codes');
-const { deleteProductService } = require('../../services');
+const { DeleteProductService } = require('../../services');
 
 module.exports = async (req, res) => {
-  await deleteProductService(req.params.id);
+  await DeleteProductService(req.params.id);
   return res.status(NO_CONTENT).end();
 };

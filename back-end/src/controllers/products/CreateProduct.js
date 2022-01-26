@@ -1,7 +1,7 @@
 const { CREATED } = require('http-status-codes/build/cjs/legacy');
-const { createProductService } = require('../../services');
+const { CreateProductService } = require('../../services');
 
 module.exports = async (req, res) => {
-  const product = await createProductService(req.body);
+  const product = await CreateProductService(req.body);
   return res.status(CREATED).json(product);
 };

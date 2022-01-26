@@ -1,11 +1,11 @@
-const mainRoute = require('express').Router({ mergeParams: true });
+const mainRoutes = require('express').Router({ mergeParams: true });
 
-const userRoute = require('./userRoute');
+const userRoute = require('./UsersRouter');
 const productsRouter = require('./ProductsRouter');
-const { salesRoute } = require('./saleRoutes');
+const salesRouter = require('./SalesRouter');
 
-mainRoute.use('/user', userRoute);
-mainRoute.use('/products', productsRouter);
-mainRoute.use('/sales', salesRoute);
+mainRoutes.use('/users', userRoute);
+mainRoutes.use('/products', productsRouter);
+mainRoutes.use('/sales', salesRouter);
 
-module.exports = mainRoute;
+module.exports = mainRoutes;

@@ -1,19 +1,17 @@
 const rescue = require('express-rescue');
-const router = require('express').Router({ mergeParams: true });
+const productsRouter = require('express').Router({ mergeParams: true });
 const {
-  readAllProducts,
-  readProductsByTerm,
-  readProductById,
-  createProduct,
-  updateProduct,
-  deleteProduct,
+  ReadAllProducts,
+  ReadProductById,
+  CreateProduct,
+  UpdateProduct,
+  DeleteProduct,
 } = require('../controllers');
 
-router.get('/', rescue(readAllProducts));
-router.get('/search', rescue(readProductsByTerm));
-router.get('/:id', rescue(readProductById));
-router.post('/', rescue(createProduct));
-router.put('/:id', rescue(updateProduct));
-router.delete('/:id', rescue(deleteProduct));
+productsRouter.get('/', rescue(ReadAllProducts));
+productsRouter.get('/:id', rescue(ReadProductById));
+productsRouter.post('/', rescue(CreateProduct));
+productsRouter.put('/:id', rescue(UpdateProduct));
+productsRouter.delete('/:id', rescue(DeleteProduct));
 
-module.exports = router;
+module.exports = productsRouter;

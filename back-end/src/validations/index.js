@@ -1,10 +1,9 @@
-const userValidate = require('./userValidate');
-const validateProduct = require('./validateProduct');
-
-const { schemaSales, schemaSalesUpdate } = require('./schemaSales');
+const validateUser = require('./ValidateUser');
+const validateProduct = require('./ValidateProduct');
+const { schemaSales, schemaSalesUpdate } = require('./ValidateSale');
 
 module.exports = {
-  userValidate,
+  validateUser,
   validateProduct,
   schemaSales,
   schemaSalesUpdate,
