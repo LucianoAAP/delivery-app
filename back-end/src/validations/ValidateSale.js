@@ -7,6 +7,7 @@ const schema = Joi.object().keys({
   deliveryAddress: Joi.string().empty(false).required(),
   deliveryNumber: Joi.string().empty(false).required(),
   status: Joi.string().empty(false).required(),
+  products: Joi.array().empty(false).required(),
 });
 
 const schemaStatus = Joi.string().empty(false).required();
