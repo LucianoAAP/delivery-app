@@ -4,8 +4,8 @@ const INITIAL_STATE = {
 
 const cart = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    default:
-      return state;
+  default:
+    return state;
   }
 };
 
