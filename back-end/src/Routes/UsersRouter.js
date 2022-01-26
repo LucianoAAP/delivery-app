@@ -2,19 +2,19 @@ const userRoute = require('express').Router({ mergeParams: true });
 const rescue = require('express-rescue');
 const {
   CreateUser,
-  ReadAllusers,
+  ReadAllUsers,
   ReadUserById,
-  Updateuser,
+  UpdateUser,
   DeleteUser,
 } = require('../controllers');
 
 userRoute.post('/', rescue(CreateUser));
 
-userRoute.get('/', rescue(ReadAllusers));
+userRoute.get('/', rescue(ReadAllUsers));
 
 userRoute.get('/:id', rescue(ReadUserById));
 
-userRoute.put('/:id', rescue(Updateuser));
+userRoute.put('/:id', rescue(UpdateUser));
 
 userRoute.delete('/:id', rescue(DeleteUser));
 

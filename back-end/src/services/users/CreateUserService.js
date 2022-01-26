@@ -1,12 +1,12 @@
 const md5 = require('md5');
 const { User } = require('../../database/models');
-const { userValidate } = require('../../validations');
+const { validateUser } = require('../../validations');
 const ApiError = require('../../Error/ApiError');
 
 const { badRequest, conflict } = ApiError;
 
 const createUserService = async (newUser) => {
-  const error = userValidate(newUser);
+  const error = validateUser(newUser);
 
   if (error) return badRequest(error);
 

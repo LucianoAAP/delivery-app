@@ -1,8 +1,8 @@
 const { OK } = require('http-status-codes/build/cjs/legacy');
-const { ReadAllusersService } = require('../../services');
+const { ReadAllUsersService } = require('../../services');
 
 const readAllUsers = async (req, res, _next) => {
-  const users = await ReadAllusersService();
+  const users = await ReadAllUsersService();
 
   return res.status(OK).json(users);
 };

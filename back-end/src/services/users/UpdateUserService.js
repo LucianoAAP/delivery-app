@@ -3,10 +3,10 @@ const ApiError = require('../../Error/ApiError');
 const { User } = require('../../database/models');
 
 const { badRequest } = ApiError;
-const { userValidate } = require('../../validations');
+const { validateUser } = require('../../validations');
 
 const UpdateUserService = async (id, user) => {
-  const error = userValidate(user);
+  const error = validateUser(user);
 
   if (error) return badRequest(error);
 

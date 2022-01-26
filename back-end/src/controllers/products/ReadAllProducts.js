@@ -1,7 +1,11 @@
 const { OK } = require('http-status-codes');
-const { readAllProductsService } = require('../../services');
+const { ReadAllProductsService, ReadProductsByTermService } = require('../../services');
 
-module.exports = async (_req, res) => {
-  const products = await readAllProductsService();
+module.exports = async (req, res) => {
+  if (req.query.q) {
+    const products = await ReadProductsByTermService(req.query.q);
+    return res.status(OK).json(products);
+  }
+  const products = await ReadAllProductsService();
   return res.status(OK).json(products);
 };

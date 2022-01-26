@@ -1,37 +1,37 @@
 const CreateUserService = require('./users/CreateUserService');
-const ReadAllusersService = require('./users/ReadAllUsersService');
+const ReadAllUsersService = require('./users/ReadAllUsersService');
 const UpdateUserService = require('./users/UpdateUserService');
 const DeleteUserService = require('./users/DeleteUserService');
 const ReadUserByIdService = require('./users/ReadUserByIdService');
 
-const readAllProductsService = require('./products/ReadAllProducts');
-const readProductsByTermService = require('./products/ReadProductsByTerm');
-const readProductByIdService = require('./products/ReadProductById');
-const createProductService = require('./products/CreateProduct');
-const updateProductService = require('./products/UpdateProduct');
-const deleteProductService = require('./products/DeleteProduct');
+const ReadAllProductsService = require('./products/ReadAllProducts');
+const ReadProductsByTermService = require('./products/ReadProductsByTerm');
+const ReadProductByIdService = require('./products/ReadProductById');
+const CreateProductService = require('./products/CreateProduct');
+const UpdateProductService = require('./products/UpdateProduct');
+const DeleteProductService = require('./products/DeleteProduct');
 
-const createSaleService = require('./Sales/createSaleService');
-const readSaleService = require('./Sales/readSaleService');
-const readSaleByIdService = require('./Sales/readSaleByIdService');
-const updateSaleService = require('./Sales/updateSaleService');
-const deleteSaleService = require('./Sales/deleteSaleService');
+const CreateSaleService = require('./sales/CreateSaleService');
+const ReadAllSalesService = require('./sales/ReadAllSalesService');
+const ReadSaleByIdService = require('./sales/ReadSaleByIdService');
+const UpdateSaleService = require('./sales/UpdateSaleService');
+const DeleteSaleService = require('./sales/DeleteSaleService');
 
 module.exports = {
   CreateUserService,
-  ReadAllusersService,
+  ReadAllUsersService,
   UpdateUserService,
   DeleteUserService,
   ReadUserByIdService,
-  readAllProductsService,
-  readProductsByTermService,
-  readProductByIdService,
-  createProductService,
-  updateProductService,
-  deleteProductService,
-  createSaleService,
-  readSaleService,
-  readSaleByIdService,
-  updateSaleService,
-  deleteSaleService,
+  ReadAllProductsService,
+  ReadProductsByTermService,
+  ReadProductByIdService,
+  CreateProductService,
+  UpdateProductService,
+  DeleteProductService,
+  CreateSaleService,
+  ReadAllSalesService,
+  ReadSaleByIdService,
+  UpdateSaleService,
+  DeleteSaleService,
 };

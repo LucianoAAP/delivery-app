@@ -1,8 +1,8 @@
 const { OK } = require('http-status-codes');
-const { readSaleService } = require('../../services');
+const { ReadAllSalesService } = require('../../services');
 
 module.exports = async (_req, res) => {
-  const result = await readSaleService();
+  const result = await ReadAllSalesService();
 
   return res.status(OK).json(result);
 };
