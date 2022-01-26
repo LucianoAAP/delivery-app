@@ -1,7 +1,7 @@
 const { INTERNAL_SERVER_ERROR } = require('http-status-codes');
 const ApiError = require('../Error/ApiError');
 
-module.exports = (err, req, res) => {
+module.exports = (err, req, res, _next) => {
   console.log({ erro: err });
 
   if (err instanceof ApiError) {

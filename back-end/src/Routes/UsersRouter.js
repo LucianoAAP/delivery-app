@@ -1,4 +1,4 @@
-const userRoute = require('express').Router({ mergeParams: true });
+const usersRouter = require('express').Router({ mergeParams: true });
 const rescue = require('express-rescue');
 const {
   CreateUser,
@@ -7,15 +7,16 @@ const {
   UpdateUser,
   DeleteUser,
 } = require('../controllers');
+const authorizeToken = require('../middlewares/authorizeToken');
 
-userRoute.post('/', rescue(CreateUser));
+usersRouter.post('/', rescue(CreateUser));
 
-userRoute.get('/', rescue(ReadAllUsers));
+usersRouter.get('/', rescue(authorizeToken), rescue(ReadAllUsers));
 
-userRoute.get('/:id', rescue(ReadUserById));
+usersRouter.get('/:id', rescue(authorizeToken), rescue(ReadUserById));
 
-userRoute.put('/:id', rescue(UpdateUser));
+usersRouter.put('/:id', rescue(authorizeToken), rescue(UpdateUser));
 
-userRoute.delete('/:id', rescue(DeleteUser));
+usersRouter.delete('/:id', rescue(authorizeToken), rescue(DeleteUser));
 
-module.exports = userRoute;
+module.exports = usersRouter;
