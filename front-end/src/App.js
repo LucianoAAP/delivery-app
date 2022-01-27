@@ -1,13 +1,12 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import './App.css';
+import CustomerPage from './pages/CustomerPage/CustomerPage';
 
-function App() {
-  return (
-    <Routes>
-      <Route />
-    </Routes>
-  );
-}
+const App = () => (
+  <Routes>
+    <Route />
+    <Route exact path="/customer/products" element={ <CustomerPage /> } />
+  </Routes>
+);
 
 export default App;

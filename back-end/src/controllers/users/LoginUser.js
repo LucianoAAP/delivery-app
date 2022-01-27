@@ -6,7 +6,7 @@ const loginUser = async (req, res, _next) => {
 
   const userToken = await LoginUserService(body);
 
-  return res.status(OK).json({ token: userToken });
+  return res.status(OK).json(userToken);
 };
 
 module.exports = loginUser;
