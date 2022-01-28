@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import getProducts from '../../services/getProducts';
-import ProductCard from '../ProductCard/ProductCard';
+import ProductCard from '../ProductCard';
 import { ProductListContainer, ProductSection, FloatButtonCart } from './styles';
 
 const ProductList = () => {

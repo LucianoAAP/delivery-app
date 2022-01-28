@@ -1,17 +1,19 @@
 import React from 'react';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
+import CustomerPage from './pages/CustomerPage';
+import SellerOrders from './pages/SellerOrders';
+import SellerOrderDetails from './pages/SellerOrderDetails';
 import Login from './pages/LoginPage';
-import CustomerPage from './pages/CustomerPage/CustomerPage';
 import './index.css';
 
-function App() {
-  return (
-    <Routes>
-      <Route exact path="/" element={ <Navigate to="/login" /> } />
-      <Route exact path="/login" element={ <Login /> } />
-      <Route exact path="/customer/products" element={ <CustomerPage /> } />
-    </Routes>
-  );
-}
+const App = () => (
+  <Routes>
+    <Route exact path="/login" element={ <Login /> } />
+    <Route exact path="/customer/products" element={ <CustomerPage /> } />
+    <Route exact path="/seller/orders" element={ <SellerOrders /> } />
+    <Route exact path="/seller/orders/:id" element={ <SellerOrderDetails /> } />
+    <Route exact path="/" element={ <Navigate to="/login" /> } />
+  </Routes>
+);
 
 export default App;

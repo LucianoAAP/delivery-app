@@ -1,25 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { HeaderContainer } from '../../global-styles/globalComponents';
-import SellerSideBar from '../SellerSideBar';
-import { Flex, NavList, HamburguerIcon, RedirectButton } from './styles';
-import getUserInfo from '../../utils/getLocalStorage';
+import { PropTypes } from 'prop-types';
+import { NavList, Flex, RedirectButton, CloseIcon } from './styles';
+import { SideBarContainer } from '../../global-styles/globalComponents';
+import getLocalStorage from '../../utils/getLocalStorage';
 
-const SellerHeader = () => {
+const CustomerSideBar = ({ open, setOpen }) => {
   const navigate = useNavigate();
   const [user, setUser] = useState('');
-  const [sideBar, setSideBar] = useState(false);
 
   useEffect(() => {
-    const userName = getUserInfo('name');
+    const userName = getLocalStorage('userName');
     setUser(userName);
   }, []);
 
   return (
-    <HeaderContainer>
+    <SideBarContainer open={ open }>
+      <CloseIcon onClick={ () => setOpen(false) } />
       <Flex>
-        <HamburguerIcon onClick={ () => setSideBar(true) } />
-        <SellerSideBar open={ sideBar } setOpen={ setSideBar } />
         <NavList>
           <RedirectButton
             data-testid="customer_products__element-navbar-link-orders"
@@ -44,8 +42,13 @@ const SellerHeader = () => {
           </RedirectButton>
         </NavList>
       </Flex>
-    </HeaderContainer>
+    </SideBarContainer>
   );
 };
 
-export default SellerHeader;
+CustomerSideBar.propTypes = {
+  open: PropTypes.bool.isRequired,
+  setOpen: PropTypes.func.isRequired,
+};
+
+export default CustomerSideBar;

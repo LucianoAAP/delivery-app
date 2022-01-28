@@ -1,14 +1,14 @@
 const ApiError = require('../../Error/ApiError');
 
 const { badRequest } = ApiError;
-const { User } = require('../../database/models');
+const { user } = require('../../database/models');
 
 const ReadUserByIdService = async (id) => {
-  const user = await User.findByPk(id, { attributes: { exclude: ['password'] } });
+  const userInfo = await user.findByPk(id, { attributes: { exclude: ['password'] } });
 
-  if (!user) return badRequest('User not found!');
+  if (!userInfo) return badRequest('User not found!');
 
-  return user;
+  return userInfo;
 };
 
 module.exports = ReadUserByIdService;

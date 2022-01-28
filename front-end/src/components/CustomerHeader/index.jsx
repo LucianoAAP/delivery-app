@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { HeaderContainer } from '../../global-styles/globalComponents';
-import CustomerSideBar from '../CustomerSideBar/CustomerSideBar';
+import CustomerSideBar from '../CustomerSideBar';
 import { Flex, NavList, HamburguerIcon, RedirectButton } from './styles';
 
 const CustomerHeader = () => {

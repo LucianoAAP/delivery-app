@@ -1,6 +1,5 @@
 import React from 'react';
-import CustomerHeader from '../../components/CustomerHeader/CustomerHeader';
-import { ProductList } from '../../components';
+import { CustomerHeader, ProductList } from '../components';
 
 const CustomerPage = () => (
   <main>
