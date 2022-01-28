@@ -11,7 +11,7 @@ const FormLogin = () => {
       <Section>
         <H1>Login</H1>
         <Label htmlFor="inputEmail">
-          Login
+          Email
           <Input
             name="email"
             value={ email }

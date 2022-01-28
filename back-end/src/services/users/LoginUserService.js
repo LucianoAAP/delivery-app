@@ -1,13 +1,12 @@
 require('dotenv/config');
 const jwt = require('jsonwebtoken');
 const md5 = require('md5');
+const fs = require('fs');
 const { user } = require('../../database/models');
 const { validateLogin } = require('../../validations');
 const ApiError = require('../../Error/ApiError');
 
 const { badRequest, notFound } = ApiError;
-
-const SECRET = process.env.JWT_SECRET;
 
 const jwtConfig = {
   expiresIn: '12h',
@@ -15,7 +14,9 @@ const jwtConfig = {
 };
 
 const loginUserService = async (myUser) => {
+  const SECRET = fs.readFileSync('jwt.evaluation.key').toString();
   const error = validateLogin(myUser);
+  console.log(SECRET);
   
   if (error) {
     console.log(error);
