@@ -1,11 +1,11 @@
 require('dotenv/config');
 const jwt = require('jsonwebtoken');
 const md5 = require('md5');
-const { User } = require('../../database/models');
+const { user } = require('../../database/models');
 const { validateLogin } = require('../../validations');
 const ApiError = require('../../Error/ApiError');
 
-const { badRequest } = ApiError;
+const { badRequest, notFound } = ApiError;
 
 const SECRET = process.env.JWT_SECRET;
 
@@ -14,16 +14,19 @@ const jwtConfig = {
   algorithm: 'HS256',
 };
 
-const loginUserService = async (user) => {
-  const error = validateLogin(user);
+const loginUserService = async (myUser) => {
+  const error = validateLogin(myUser);
   
-  if (error) return badRequest(error);
+  if (error) {
+    console.log(error);
+    return badRequest(error);
+  }
   
-  const login = await User.findOne({ where: { email: user.email, password: md5(user.password) } });
+  const login = await user
+    .findOne({ where: { email: myUser.email, password: md5(myUser.password) } });
   
+  if (!login) return notFound('usuário não encontrado');
   const { password, ...userWithoutPassword } = login.dataValues;
-
-  if (!login) return badRequest('Invalid fields');
 
   const token = jwt.sign(login.dataValues, SECRET, jwtConfig);
 

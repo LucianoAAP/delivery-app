@@ -1,4 +1,5 @@
 {
-  "root": true,
-  "extends": ["trybe-frontend"]
-}
+    "root": true,
+    "extends": ["trybe-frontend"]
+  }
+  

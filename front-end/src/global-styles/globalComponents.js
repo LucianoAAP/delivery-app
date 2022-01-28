@@ -30,3 +30,15 @@ export const Description = styled.p`
   margin: ${(props) => props.margin || '0'};
   padding: ${(props) => props.padding || '0'};
 `;
+
+const MainTag = styled.main`
+  align-items: center;
+  display: flex;
+  flex-flow: column nowrap;
+  height: 100vh;
+  margin: auto;
+  overflow-x: hidden;
+  width: 100vw;
+`;
+
+export default MainTag;
