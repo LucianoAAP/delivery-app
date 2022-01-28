@@ -7,6 +7,6 @@ module.exports = (err, req, res, _next) => {
   if (err instanceof ApiError) {
     return res.status(err.code).json(err.message);
   }
-  
+
   return res.status(INTERNAL_SERVER_ERROR).json({ message: 'Internal error!' });
 };

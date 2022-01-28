@@ -1,22 +1,22 @@
 const md5 = require('md5');
 const ApiError = require('../../Error/ApiError');
-const { User } = require('../../database/models');
+const { user } = require('../../database/models');
 
 const { badRequest } = ApiError;
 const { validateUser } = require('../../validations');
 
-const UpdateUserService = async (id, user) => {
-  const error = validateUser(user);
+const UpdateUserService = async (id, body) => {
+  const error = validateUser(body);
 
   if (error) return badRequest(error);
 
-  const userExists = await User.findByPk(id);
+  const userExists = await user.findByPk(id);
 
   if (!userExists) return badRequest('User not found!');
 
-  const { password, ...userWithoutPassword } = user;
+  const { password, ...userWithoutPassword } = body;
 
-  const updatedUser = await User.update(
+  const updatedUser = await user.update(
     { ...userWithoutPassword, password: md5(password) }, { where: { id } },
   );
 

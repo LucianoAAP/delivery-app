@@ -1,5 +1,5 @@
 const md5 = require('md5');
-const { User } = require('../../database/models');
+const { user } = require('../../database/models');
 const { validateUser } = require('../../validations');
 const ApiError = require('../../Error/ApiError');
 
@@ -10,13 +10,13 @@ const createUserService = async (newUser) => {
 
   if (error) return badRequest(error);
 
-  const emailExists = await User.findOne({ where: { email: newUser.email } });
+  const emailExists = await user.findOne({ where: { email: newUser.email } });
 
   if (emailExists) return conflict('Email already registered');
 
   const { password, ...userWhithoutPassword } = newUser;
 
-  const createdUser = await User.create({ ...userWhithoutPassword, password: md5(password) });
+  const createdUser = await user.create({ ...userWhithoutPassword, password: md5(password) });
 
   return createdUser;
 };
