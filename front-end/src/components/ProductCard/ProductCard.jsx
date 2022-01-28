@@ -21,7 +21,7 @@ const ProductCard = ({ product }) => {
       <ImageContainer>
         <ProductImg
           data-testid={ `customer_products__img-card-bg-image-${product.id}` }
-          src={ product.url_image }
+          src={ product.urlImage }
           alt="product"
         />
       </ImageContainer>
@@ -70,7 +70,7 @@ ProductCard.propTypes = {
     id: PropTypes.number,
     name: PropTypes.string,
     price: PropTypes.number,
-    url_image: PropTypes.string,
+    urlImage: PropTypes.string,
   }).isRequired,
 };
 
