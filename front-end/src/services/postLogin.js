@@ -7,9 +7,9 @@ const postLogin = async (email, password) => {
       password,
     });
 
-    console.log(axiosPost.data);
     return axiosPost.data;
   } catch (err) {
+    console.log(err);
     return err;
   }
 };
