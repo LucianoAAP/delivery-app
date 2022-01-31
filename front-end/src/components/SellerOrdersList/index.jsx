@@ -15,14 +15,22 @@ const SellerOrderList = () => {
   return (
     <OrderListContainer>
       { orders.map((order, index) => {
-        const { totalPrice, deliveryAddress, saleDate, status, id } = order;
+        const {
+          totalPrice,
+          deliveryAddress,
+          deliveryNumber,
+          saleDate,
+          status,
+          id,
+        } = order;
+
         return (
           <OrderCard
             key={ `order-${index}` }
             orderId={ index + 1 }
             id={ id }
             status={ status }
-            address={ deliveryAddress }
+            address={ `${deliveryAddress}, ${deliveryNumber}` }
             totalPrice={ totalPrice }
             date={ saleDate }
           />

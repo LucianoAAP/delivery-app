@@ -1,19 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { HeaderContainer } from '../../global-styles/globalComponents';
 import SellerSideBar from '../SellerSideBar';
 import { Flex, NavList, HamburguerIcon, RedirectButton } from './styles';
-import getUserInfo from '../../utils/getLocalStorage';
+import useHeader from '../../hooks/useHeader';
 
 const SellerHeader = () => {
   const navigate = useNavigate();
-  const [user, setUser] = useState('');
-  const [sideBar, setSideBar] = useState(false);
-
-  useEffect(() => {
-    const userName = getUserInfo('name');
-    setUser(userName);
-  }, []);
+  const { user, sideBar, setSideBar, logout } = useHeader();
 
   return (
     <HeaderContainer>
@@ -38,7 +32,7 @@ const SellerHeader = () => {
           <RedirectButton
             data-testid="customer_products__element-navbar-link-logout"
             type="button"
-            onClick={ () => navigate('/login') }
+            onClick={ logout }
           >
             Sair
           </RedirectButton>

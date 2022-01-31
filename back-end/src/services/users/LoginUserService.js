@@ -16,7 +16,6 @@ const jwtConfig = {
 const loginUserService = async (myUser) => {
   const SECRET = fs.readFileSync('jwt.evaluation.key').toString();
   const error = validateLogin(myUser);
-  console.log(SECRET);
   
   if (error) {
     console.log(error);
