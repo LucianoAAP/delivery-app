@@ -17,7 +17,7 @@ const useHeader = () => {
     navigate('/login');
   };
 
-  return { user, sideBar, setSideBar, logout };
+  return { user, sideBar, setSideBar, logout, navigate };
 };
 
 export default useHeader;

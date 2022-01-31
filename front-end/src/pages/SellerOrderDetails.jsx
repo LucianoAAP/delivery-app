@@ -1,10 +1,10 @@
 import React from 'react';
-import { SellerHeader, OrderDetailsField } from '../components';
+import { SellerHeader, SellerOrderDetailsField } from '../components';
 
 const OrderDetails = () => (
   <>
     <SellerHeader />
-    <OrderDetailsField />
+    <SellerOrderDetailsField />
   </>
 );
 

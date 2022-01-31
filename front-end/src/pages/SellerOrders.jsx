@@ -1,10 +1,10 @@
 import React from 'react';
-import { SellerHeader, SellerOrderList } from '../components';
+import { SellerHeader, SellerOrdersList } from '../components';
 
 const SellerOrders = () => (
   <>
     <SellerHeader />
-    <SellerOrderList />
+    <SellerOrdersList />
   </>
 );
 

@@ -31,6 +31,17 @@ export const Description = styled.p`
   padding: ${(props) => props.padding || '0'};
 `;
 
+export const OrderListContainer = styled.section`
+  width: 100vw;
+  max-width: 1024px;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+`;
+
 const MainTag = styled.main`
   align-items: center;
   display: flex;
