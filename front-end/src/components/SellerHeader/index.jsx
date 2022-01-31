@@ -1,13 +1,11 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import { HeaderContainer } from '../../global-styles/globalComponents';
 import SellerSideBar from '../SellerSideBar';
 import { Flex, NavList, HamburguerIcon, RedirectButton } from './styles';
 import useHeader from '../../hooks/useHeader';
 
 const SellerHeader = () => {
-  const navigate = useNavigate();
-  const { user, sideBar, setSideBar, logout } = useHeader();
+  const { user, sideBar, setSideBar, logout, navigate } = useHeader();
 
   return (
     <HeaderContainer>

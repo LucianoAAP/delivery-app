@@ -1,6 +1,6 @@
 import React from 'react';
-import SaleProductsTable from '../SaleProductsTable';
-import useOrderDetails from '../../hooks/useOrderDetails';
+import ProductsTable from '../ProductsTable';
+import useSellerOrderDetails from '../../hooks/useSellerOrderDetails';
 import { getDate, getPrice, padNumber } from '../../utils/formatManipulation';
 import {
   ProductListContainer,
@@ -21,7 +21,7 @@ const dataTestIds = {
 
 const PAD = 4;
 
-const OrderDetailsField = () => {
+const SellerOrderDetailsField = () => {
   const {
     orderId,
     order,
@@ -29,7 +29,7 @@ const OrderDetailsField = () => {
     dispatchDisplay,
     prepareOrder,
     dispatchOrder,
-  } = useOrderDetails();
+  } = useSellerOrderDetails();
 
   if (!order.products) return <p>loading</p>;
 
@@ -66,7 +66,7 @@ const OrderDetailsField = () => {
             SAIU PARA ENTREGA
           </button>
         </StatusField>
-        <SaleProductsTable products={ products } />
+        <ProductsTable products={ products } userRole="seller" />
         <TotalPrice data-testid={ dataTestIds.price }>
           { `Total: ${getPrice(totalPrice)}` }
         </TotalPrice>
@@ -75,4 +75,4 @@ const OrderDetailsField = () => {
   );
 };
 
-export default OrderDetailsField;
+export default SellerOrderDetailsField;

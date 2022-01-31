@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { getSaleFromSeller } from '../../services/salesAPI';
-import OrderCard from '../SellerOrderCard';
+import { getSaleFromCustomer } from '../../services/salesAPI';
+import OrderCard from '../CustomerOrderCard';
 import { OrderListContainer } from '../../global-styles/globalComponents';
 import getUserInfo from '../../utils/getLocalStorage';
 
-const SellerOrdersList = () => {
+const CustomerOrdersList = () => {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
     const userId = getUserInfo('id');
-    getSaleFromSeller(userId).then((response) => setOrders(response));
+    getSaleFromCustomer(userId).then((response) => setOrders(response));
   }, []);
 
   return (
@@ -17,8 +17,6 @@ const SellerOrdersList = () => {
       { orders.map((order, index) => {
         const {
           totalPrice,
-          deliveryAddress,
-          deliveryNumber,
           saleDate,
           status,
           id,
@@ -30,7 +28,6 @@ const SellerOrdersList = () => {
             orderId={ index + 1 }
             id={ id }
             status={ status }
-            address={ `${deliveryAddress}, ${deliveryNumber}` }
             totalPrice={ totalPrice }
             date={ saleDate }
           />
@@ -40,4 +37,4 @@ const SellerOrdersList = () => {
   );
 };
 
-export default SellerOrdersList;
+export default CustomerOrdersList;
