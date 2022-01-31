@@ -9,8 +9,8 @@ import './index.css';
 
 const App = () => (
   <Routes>
-    <Route exact path="/seller/orders/:id" element={ <SellerOrderDetails /> } />
     <Route exact path="/seller/orders" element={ <SellerOrders /> } />
+    <Route exact path="/seller/orders/:id" element={ <SellerOrderDetails /> } />
     <Route exact path="/customer/products" element={ <CustomerPage /> } />
     <Route exact path="/login" element={ <LoginPage /> } />
     <Route exact path="/register" element={ <Register /> } />

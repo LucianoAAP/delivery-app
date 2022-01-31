@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { HeaderContainer } from '../../global-styles/globalComponents';
 import CustomerSideBar from '../CustomerSideBar';
 import { Flex, NavList, HamburguerIcon, RedirectButton } from './styles';
+import useHeader from '../../hooks/useHeader';
 
 const CustomerHeader = () => {
-  const [sideBar, setSideBar] = useState(false);
   const navigate = useNavigate();
+  const { user, sideBar, setSideBar, logout } = useHeader();
 
   return (
     <HeaderContainer>
@@ -33,12 +34,12 @@ const CustomerHeader = () => {
             type="button"
             onClick={ () => navigate('/customer/products') }
           >
-            Lucas Fernandes
+            { user }
           </RedirectButton>
           <RedirectButton
             data-testid="customer_products__element-navbar-link-logout"
             type="button"
-            onClick={ () => navigate('/login') }
+            onClick={ logout }
           >
             Sair
           </RedirectButton>

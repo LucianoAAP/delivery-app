@@ -3,8 +3,8 @@ import SellerHeader from './SellerHeader';
 import ProductList from './ProductList';
 import SellerOrderList from './SellerOrdersList';
 import OrderDetailsField from './OrderDetailsField';
-import FormLogin from './FormLogin';
 import RegisterButton from './RegisterButton';
+import FormLogin from './FormLogin';
 import RegisterForm from './RegisterForm';
 
 export {
@@ -14,6 +14,6 @@ export {
   RegisterForm,
   SellerOrderList,
   OrderDetailsField,
-  FormLogin,
   RegisterButton,
+  FormLogin,
 };

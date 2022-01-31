@@ -1,37 +1,45 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router';
-import { getSaleFromSeller } from '../../services/salesAPI';
+import React from 'react';
 import SaleProductsTable from '../SaleProductsTable';
+import useOrderDetails from '../../hooks/useOrderDetails';
 import { getDate, getPrice, padNumber } from '../../utils/formatManipulation';
-import getUserInfo from '../../utils/getLocalStorage';
+import {
+  ProductListContainer,
+  DetailsTitle,
+  StatusField,
+  DetailsContainer,
+  TotalPrice,
+} from './styles';
 
 const dataTestIds = {
   id: 'seller_order_details__element-order-details-label-order-id',
   date: 'seller_order_details__element-order-details-label-order-date',
   status: 'seller_order_details__element-order-details-label-delivery-status',
   price: 'seller_order_details__element-order-total-price',
+  preparing: 'seller_order_details__button-preparing-check',
+  dispatch: 'seller_order_details__button-dispatch-check',
 };
 
 const PAD = 4;
 
 const OrderDetailsField = () => {
-  const { id: orderId } = useParams();
-  const [order, sertOrder] = useState({});
-
-  useEffect(() => {
-    const userId = getUserInfo('id');
-    getSaleFromSeller(userId).then((response) => sertOrder(response[orderId - 1]));
-  }, [orderId]);
+  const {
+    orderId,
+    order,
+    preparingDisplay,
+    dispatchDisplay,
+    prepareOrder,
+    dispatchOrder,
+  } = useOrderDetails();
 
   if (!order.products) return <p>loading</p>;
 
   const { totalPrice, saleDate, status, products } = order;
 
   return (
-    <>
-      <h2>Detalhes do pedido</h2>
-      <div>
-        <div>
+    <ProductListContainer>
+      <DetailsTitle>Detalhes do pedido</DetailsTitle>
+      <DetailsContainer>
+        <StatusField>
           <span data-testid={ dataTestIds.id }>
             { `Pedido ${padNumber(orderId, PAD)}` }
           </span>
@@ -41,11 +49,29 @@ const OrderDetailsField = () => {
           <span data-testid={ dataTestIds.status }>
             { status }
           </span>
-        </div>
+          <button
+            type="button"
+            data-testid={ dataTestIds.preparing }
+            disabled={ preparingDisplay }
+            onClick={ prepareOrder }
+          >
+            PREPARAR PEDIDO
+          </button>
+          <button
+            type="button"
+            data-testid={ dataTestIds.dispatch }
+            disabled={ dispatchDisplay }
+            onClick={ dispatchOrder }
+          >
+            SAIU PARA ENTREGA
+          </button>
+        </StatusField>
         <SaleProductsTable products={ products } />
-        <div data-testid={ dataTestIds.price }>{ getPrice(totalPrice) }</div>
-      </div>
-    </>
+        <TotalPrice data-testid={ dataTestIds.price }>
+          { `Total: ${getPrice(totalPrice)}` }
+        </TotalPrice>
+      </DetailsContainer>
+    </ProductListContainer>
   );
 };
 

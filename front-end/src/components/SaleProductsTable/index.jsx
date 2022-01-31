@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { getPrice } from '../../utils/formatManipulation';
+import { Columns, Name, Quantity } from './styles';
 
 const { arrayOf, shape, string, number } = PropTypes;
 
@@ -20,24 +21,24 @@ const SaleProductsTable = ({ products }) => (
   <table>
     <thead>
       <tr>
-        <th>Item</th>
-        <th>Descrição</th>
+        <Columns>Item</Columns>
+        <Columns>Descrição</Columns>
         <th>Quantidade</th>
-        <th>Valor Unitário</th>
-        <th>Sub-total</th>
+        <Columns>Valor Unitário</Columns>
+        <Columns>Sub-total</Columns>
       </tr>
     </thead>
     <tbody>
       { products.map((product, index) => {
-        const { name, orderInfo, price } = product;
+        const { name, orderInfo: { quantity }, price } = product;
         return (
           <tr key={ `product-${index}` }>
             <td data-testid={ getDataTestId('number') }>{ index + 1 }</td>
-            <td data-testid={ getDataTestId('name') }>{ name }</td>
-            <td data-testid={ getDataTestId('quantity') }>{ orderInfo.quantity }</td>
+            <Name data-testid={ getDataTestId('name') }>{ name }</Name>
+            <Quantity data-testid={ getDataTestId('quantity') }>{ quantity }</Quantity>
             <td data-testid={ getDataTestId('unitPrice') }>{ getPrice(price) }</td>
             <td data-testid={ getDataTestId('subTotal') }>
-              { getPrice(price * orderInfo.quantity) }
+              { getPrice(price * quantity) }
             </td>
           </tr>
         );
