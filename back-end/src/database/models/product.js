@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
       urlImage: DataTypes.STRING(200)
     },
     {
-      tableName: 'Products',
+      tableName: 'products',
       timestamps: false,
       underscored: true
     }

@@ -2,7 +2,7 @@ const md5 = require('md5');
 const fs = require('fs');
 const jwt = require('jsonwebtoken');
 const { Op } = require('sequelize');
-const { user } = require('../../database/models');
+const { User } = require('../../database/models');
 const { validateUser } = require('../../validations');
 const ApiError = require('../../Error/ApiError');
 
@@ -20,7 +20,7 @@ const createUserService = async (newUser) => {
 
   if (error) return badRequest(error);
 
-  const emailExists = await user.findOne({
+  const emailExists = await User.findOne({
     where: {
       [Op.or]: [{ name: newUser.name }, { email: newUser.email }],
     },
@@ -30,7 +30,7 @@ const createUserService = async (newUser) => {
 
   const { password, ...userWithoutPassword } = newUser;
   
-  const { dataValues } = await user
+  const { dataValues } = await User
     .create({ ...userWithoutPassword, password: md5(password) });
   
   const token = jwt.sign(newUser, SECRET, jwtConfig);

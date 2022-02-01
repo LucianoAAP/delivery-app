@@ -9,10 +9,11 @@ const useOrderDetails = () => {
   const [preparingDisplay, setPreparingDisplay] = useState(true);
   const [dispatchDisplay, setDispatchDisplay] = useState(true);
 
+  const { id: userId, token } = getUserInfo();
+
   useEffect(() => {
-    const userId = getUserInfo('id');
-    getSaleFromSeller(userId).then((response) => setOrder(response[orderId - 1]));
-  }, [orderId]);
+    getSaleFromSeller(userId, token).then((response) => setOrder(response[orderId - 1]));
+  }, [orderId, userId, token]);
 
   useEffect(() => {
     if (order.status && order.status === 'Pendente') {
@@ -28,12 +29,12 @@ const useOrderDetails = () => {
   }, [order]);
 
   const prepareOrder = async () => {
-    await updateSale({ ...order, status: 'Preparando' });
+    await updateSale({ ...order, status: 'Preparando' }, token);
     setOrder({ ...order, status: 'Preparando' });
   };
 
   const dispatchOrder = async () => {
-    await updateSale({ ...order, status: 'Em Trânsito' });
+    await updateSale({ ...order, status: 'Em Trânsito' }, token);
     setOrder({ ...order, status: 'Em Trânsito' });
   };
 

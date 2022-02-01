@@ -1,5 +1,7 @@
 const rescue = require('express-rescue');
 const salesRouter = require('express').Router({ mergeParams: true });
+const authorizeToken = require('../middlewares/authorizeToken');
+
 const {
   CreateSale,
   ReadAllSales,
@@ -8,10 +10,10 @@ const {
   DeleteSales,
 } = require('../controllers');
 
-salesRouter.get('/', rescue(ReadAllSales));
-salesRouter.get('/:id', rescue(ReadSaleById));
-salesRouter.put('/:id', rescue(UpdateSales));
-salesRouter.delete('/:id', rescue(DeleteSales));
-salesRouter.post('/', rescue(CreateSale));
+salesRouter.get('/', rescue(authorizeToken), rescue(ReadAllSales));
+salesRouter.get('/:id', rescue(authorizeToken), rescue(ReadSaleById));
+salesRouter.put('/:id', rescue(authorizeToken), rescue(UpdateSales));
+salesRouter.delete('/:id', rescue(authorizeToken), rescue(DeleteSales));
+salesRouter.post('/', rescue(authorizeToken), rescue(CreateSale));
 
 module.exports = salesRouter;

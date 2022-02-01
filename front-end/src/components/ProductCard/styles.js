@@ -3,9 +3,9 @@ import styled from 'styled-components';
 export const ProductContainer = styled.div`
   width: 40%;
   height: 360px;
-  border: 1px solid black;
+  border: 1px solid lightgray;
   border-radius: 6px;
-  box-shadow: 3px 4px 7px black;
+  box-shadow: 4px 7px 10px lightgray;
   margin: 10px;
   @media(min-width: 768px) {
     width: 250px;

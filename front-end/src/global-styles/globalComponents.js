@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const HeaderContainer = styled.header`
   width: 100vw;
   height: 100px;
+  margin-bottom: 50px;
 `;
 
 export const FooterContainer = styled.footer`
@@ -46,10 +47,11 @@ const MainTag = styled.main`
   align-items: center;
   display: flex;
   flex-flow: column nowrap;
-  height: 100vh;
   margin: auto;
   overflow-x: hidden;
   width: 100vw;
+  background-color: whitesmoke;
+  min-height: 100vh;
 `;
 
 export default MainTag;

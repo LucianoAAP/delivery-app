@@ -15,16 +15,16 @@ module.exports = (sequelize, DataTypes) => {
       sellerId: {type: DataTypes.INTEGER, foreignKey: true }
     },
     {
-      tableName: 'Sales',
+      tableName: 'sales',
       timestamps: false,
       underscored: true
     }
   )
 
   Sale.associate = (models) => {
-    Sale.belongsTo(models.user , { foreignKey: 'userId', as: 'customer' })
+    Sale.belongsTo(models.User , { foreignKey: 'userId', as: 'customer' })
 
-    Sale.belongsTo(models.user, { foreignKey: 'sellerId', as: 'seller' } )
+    Sale.belongsTo(models.User, { foreignKey: 'sellerId', as: 'seller' } )
   }
   return Sale;
 };

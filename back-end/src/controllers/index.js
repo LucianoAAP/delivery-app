@@ -1,5 +1,6 @@
 // User
 const CreateUser = require('./users/CreateUser');
+const CreateUserAdm = require('./users/CreateUserAdm');
 const ReadAllUsers = require('./users/ReadAllUsers');
 const UpdateUser = require('./users/UpdateUser');
 const DeleteUser = require('./users/DeleteUser');
@@ -22,6 +23,7 @@ const DeleteSales = require('./sales/DeleteSale');
 
 module.exports = {
   CreateUser,
+  CreateUserAdm,
   ReadAllUsers,
   UpdateUser,
   DeleteUser,

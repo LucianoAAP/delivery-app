@@ -24,7 +24,7 @@ const ProductList = () => {
         {products.length > 0
           ? products.map((e) => <ProductCard product={ e } key={ e.id } />) : null}
       </ProductSection>
-      <FloatButtonCart onClick={ () => navigate('/customer/orders') }>
+      <FloatButtonCart onClick={ () => navigate('/customer/checkout') }>
         <h3 data-testid="customer_products__checkout-bottom-value">Ver Carrinho</h3>
       </FloatButtonCart>
     </ProductListContainer>

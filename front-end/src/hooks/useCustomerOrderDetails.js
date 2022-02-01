@@ -8,21 +8,23 @@ const useOrderDetails = () => {
   const [order, setOrder] = useState({});
   const [deliveredDisplay, setDeliveredDisplay] = useState(true);
 
-  useEffect(() => {
-    const userId = getUserInfo('id');
-    getSaleFromCustomer(userId).then((response) => setOrder(response[orderId - 1]));
-  }, [orderId]);
+  const { id: userId, token } = getUserInfo();
 
   useEffect(() => {
-    if (order.status && order.status === 'Entregue') {
-      setDeliveredDisplay(true);
-    } else {
+    getSaleFromCustomer(userId, token)
+      .then((response) => setOrder(response[orderId - 1]));
+  }, [orderId, userId, token]);
+
+  useEffect(() => {
+    if (order.status && order.status === 'Em Trânsito') {
       setDeliveredDisplay(false);
+    } else {
+      setDeliveredDisplay(true);
     }
   }, [order]);
 
   const receiveOrder = async () => {
-    await updateSale({ ...order, status: 'Entregue' });
+    await updateSale({ ...order, status: 'Entregue' }, token);
     setOrder({ ...order, status: 'Entregue' });
   };
 
