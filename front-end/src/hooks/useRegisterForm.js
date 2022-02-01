@@ -24,7 +24,7 @@ const useRegisterForm = () => {
     if (!response.token) return setBool(false);
 
     const userInfo = JSON.stringify(response);
-    localStorage.setItem('userInfo', userInfo);
+    localStorage.setItem('user', userInfo);
 
     if (response.token) return navigate('/customer/products');
   };

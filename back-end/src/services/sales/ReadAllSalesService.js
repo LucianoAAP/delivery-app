@@ -1,9 +1,9 @@
-const { Sale, user, Product } = require('../../database/models');
+const { Sale, User, Product } = require('../../database/models');
 
 module.exports = async () => {
   const sales = await Sale.findAll({
-    include: [{ model: user, as: 'customer' },
-    { model: user, as: 'seller' },
+    include: [{ model: User, as: 'customer' },
+    { model: User, as: 'seller' },
     { model: Product, as: 'products', through: { attributes: ['quantity'], as: 'orderInfo' } }],
   });
 

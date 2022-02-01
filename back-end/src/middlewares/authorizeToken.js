@@ -1,10 +1,11 @@
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
+const fs = require('fs');
 const ApiError = require('../Error/ApiError');
 
 const { unauthorized } = ApiError;
 
-const SECRET = process.env.JWT_SECRET;
+const SECRET = fs.readFileSync('jwt.evaluation.key').toString();
 
 const validateToken = async (token) => {
   try {

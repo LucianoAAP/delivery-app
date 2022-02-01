@@ -8,8 +8,8 @@ const SellerOrdersList = () => {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    const userId = getUserInfo('id');
-    getSaleFromSeller(userId).then((response) => setOrders(response));
+    const { token, id } = getUserInfo();
+    getSaleFromSeller(id, token).then((response) => setOrders(response));
   }, []);
 
   return (

@@ -29,8 +29,8 @@ module.exports = async (body) => {
 
   try {
     const result = await createSale(body);
-    const salesProduct = products.map(async ({ productId, quantity }) => (SalesProduct
-      .create({ saleId: result.id, productId, quantity })));
+    const salesProduct = products.map(async ({ id, quantity }) => (SalesProduct
+      .create({ saleId: result.id, productId: id, quantity })));
 
     Promise.all(salesProduct, { transaction: t });
     await t.commit();

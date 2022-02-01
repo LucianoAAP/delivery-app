@@ -22,7 +22,7 @@ const useLogin = () => {
     if (!result.token) return setBool(false);
 
     const userInfo = JSON.stringify(result);
-    localStorage.setItem('userInfo', userInfo);
+    localStorage.setItem('user', userInfo);
 
     switch (result.role) {
     case 'customer':

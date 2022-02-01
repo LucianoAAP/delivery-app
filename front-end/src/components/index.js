@@ -8,6 +8,8 @@ import SellerOrderDetailsField from './SellerOrderDetailsField';
 import RegisterButton from './RegisterButton';
 import FormLogin from './FormLogin';
 import RegisterForm from './RegisterForm';
+import CheckoutItemlist from './CheckoutItemList';
+import CheckoutConfirm from './CheckoutAdress';
 
 export {
   CustomerHeader,
@@ -20,4 +22,6 @@ export {
   SellerOrderDetailsField,
   RegisterButton,
   FormLogin,
+  CheckoutItemlist,
+  CheckoutConfirm,
 };

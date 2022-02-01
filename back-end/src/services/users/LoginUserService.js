@@ -2,7 +2,7 @@ require('dotenv/config');
 const jwt = require('jsonwebtoken');
 const md5 = require('md5');
 const fs = require('fs');
-const { user } = require('../../database/models');
+const { User } = require('../../database/models');
 const { validateLogin } = require('../../validations');
 const ApiError = require('../../Error/ApiError');
 
@@ -22,7 +22,7 @@ const loginUserService = async (myUser) => {
     return badRequest(error);
   }
   
-  const login = await user
+  const login = await User
     .findOne({ where: { email: myUser.email, password: md5(myUser.password) } });
   
   if (!login) return notFound('usuário não encontrado');

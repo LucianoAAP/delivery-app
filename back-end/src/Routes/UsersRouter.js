@@ -2,6 +2,7 @@ const usersRouter = require('express').Router({ mergeParams: true });
 const rescue = require('express-rescue');
 const {
   CreateUser,
+  CreateUserAdm,
   ReadAllUsers,
   ReadUserById,
   UpdateUser,
@@ -10,6 +11,8 @@ const {
 const authorizeToken = require('../middlewares/authorizeToken');
 
 usersRouter.post('/', rescue(CreateUser));
+
+usersRouter.post('/admin', rescue(authorizeToken), rescue(CreateUserAdm));
 
 usersRouter.get('/', rescue(authorizeToken), rescue(ReadAllUsers));
 

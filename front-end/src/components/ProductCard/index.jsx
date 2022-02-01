@@ -1,20 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { PropTypes } from 'prop-types';
 import { ProductContainer, ImageContainer,
   ProductImg, InfoContainer, Name, Price, Span, ChangeQuantity } from './styles';
+import useCartQuantity from '../../hooks/useCartQuantity';
 
 const ProductCard = ({ product }) => {
-  const [quantity, setQuantity] = useState(0);
-
-  const changeProductQuantity = (operator) => {
-    if (operator === '-') {
-      return setQuantity((prevQnt) => {
-        if (prevQnt - 1 < 0) return 0;
-        return prevQnt - 1;
-      });
-    }
-    return setQuantity((prevQnt) => prevQnt + 1);
-  };
+  const { quantity, changeProductQuantity } = useCartQuantity(product);
 
   return (
     <ProductContainer>
@@ -27,7 +18,7 @@ const ProductCard = ({ product }) => {
       </ImageContainer>
       <InfoContainer>
         <Name
-          data-testid={ `customer_products__element-card-title${product.id}` }
+          data-testid={ `customer_products__element-card-title-${product.id}` }
         >
           {product.name}
         </Name>
@@ -41,11 +32,11 @@ const ProductCard = ({ product }) => {
         </Price>
         <ChangeQuantity>
           <button
-            onClick={ () => changeProductQuantity('+') }
-            data-testid={ `customer_products__button-card-add-item-${product.id}` }
+            onClick={ () => changeProductQuantity('-') }
+            data-testid={ `customer_products__button-card-rm-item-${product.id}` }
             type="button"
           >
-            +
+            -
           </button>
           <p
             data-testid={ `customer_products__input-card-quantity-${product.id}` }
@@ -53,11 +44,11 @@ const ProductCard = ({ product }) => {
             {quantity}
           </p>
           <button
-            onClick={ () => changeProductQuantity('-') }
-            data-testid={ `customer_products__button-card-rm-item-${product.id}` }
+            onClick={ () => changeProductQuantity('+') }
+            data-testid={ `customer_products__button-card-add-item-${product.id}` }
             type="button"
           >
-            -
+            +
           </button>
         </ChangeQuantity>
       </InfoContainer>

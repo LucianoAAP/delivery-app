@@ -34,6 +34,7 @@ export const RedirectButton = styled.button`
   background-color: transparent;
   font-size: 16px;
   font-weight: 800;
+  cursor: pointer;
 `;
 
 export const customerLogo = styled.img``;
