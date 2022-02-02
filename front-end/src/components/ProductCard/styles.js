@@ -78,3 +78,11 @@ export const ChangeQuantity = styled.div`
     cursor: pointer;
   }
 `;
+
+export const QauntityInput = styled.input`
+  background-color: transparent;
+  border: none;
+  width: 30%;
+  text-align: center;
+  cursor: default;
+`;

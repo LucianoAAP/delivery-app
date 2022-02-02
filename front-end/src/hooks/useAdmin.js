@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import postUserAdmin from '../services/postUserAdmin';
-import getUserInfo from '../utils/getLocalStorage';
 
 const useAdmin = () => {
   const [bool, setBool] = useState(true);
@@ -17,8 +16,7 @@ const useAdmin = () => {
   };
 
   const submitUser = async (admInfo) => {
-    const token = getUserInfo('token');
-    const result = await postUserAdmin(admInfo, token);
+    const result = await postUserAdmin(admInfo);
     if (!result) return setBool(false);
     setInfo({
       name: '', email: '', password: '', role: 'administrator',

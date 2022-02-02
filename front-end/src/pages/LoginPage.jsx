@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormLogin, RegisterButton } from '../components';
-import MainTag from '../global-styles/globalComponents';
+import { MainTag } from '../global-styles/globalComponents';
 
 const Login = () => (
   <MainTag>

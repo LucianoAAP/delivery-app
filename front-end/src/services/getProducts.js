@@ -1,10 +1,8 @@
-import axios from 'axios';
-
-const PRODUCTS_ENDPOINT = 'http://localhost:3001/products';
+import api from './API';
 
 const getProducts = async () => {
   try {
-    const result = await axios.get(PRODUCTS_ENDPOINT);
+    const result = await api.get('/products');
 
     return result.data;
   } catch (err) {

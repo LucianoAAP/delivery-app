@@ -75,25 +75,6 @@ export const ConfirmButton = styled.button`
   }
 `;
 
-export const Form = styled.form`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  gap: 30px;
-  justify-content: space-between;
-  @media(min-width: 768px) {
-    justify-content: space-between;
-    flex-direction: row;
-  }
-`;
-
-export const SelectSeller = styled.select`
-  width: 100%;
-  height: 40px;
-  cursor: pointer;
-`;
-
 export const H1 = styled.h1`
   font-size: 25px;
   font-weight: 700;

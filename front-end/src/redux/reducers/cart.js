@@ -11,6 +11,8 @@ const cart = (state = INITIAL_STATE, action) => {
     return { ...state, cart: action.payload };
   case 'TOTAL_PRICE':
     return { ...state, totalPrice: action.payload };
+  case 'CLEAR_CART':
+    return { ...state, ...INITIAL_STATE };
   default:
     return state;
   }

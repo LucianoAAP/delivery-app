@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import createSale from '../services/createSale';
 import getSellers from '../services/getSellers';
 
@@ -13,13 +15,39 @@ const useConfirmOrder = () => {
   const [sellers, setSellers] = useState();
   const [bodyInfo, setBodyInfo] = useState(INITIAL_BODY);
   const [disabledBtn, setDisabledBtn] = useState(true);
+
   const cartState = useSelector((state) => state.cart);
 
+  const navigate = useNavigate();
+
+  const throwAlert = (fetchObj) => {
+    if (fetchObj.error) {
+      return (
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Algo deu errado ao enviar seu pedido!',
+          timer: 2000,
+        })
+      );
+    }
+    return (
+      Swal.fire({
+        title: 'Tudo certo!',
+        text: 'seu pedido foi confirmado!',
+        icon: 'success',
+        timer: 2000,
+      }).then(() => navigate(`/customer/orders/${fetchObj.data.id}`))
+    );
+  };
+
   const submitSale = async () => {
-    console.log(bodyInfo);
-    await createSale({ ...bodyInfo,
+    const fetchObj = await createSale({ ...bodyInfo,
       totalPrice: cartState.totalPrice,
-      products: cartState.cart });
+      products: cartState.cart,
+      status: 'Pendente' });
+
+    return throwAlert(fetchObj);
   };
 
   const handleChange = (target) => {

@@ -25,11 +25,6 @@ export const PaperDiv = styled(Paper)`
 export const H1 = styled.h1`
   font-size: 25px;
   font-weight: 700;
-  margin-bottom: 40px;
-  @media(min-width: 950px) {
-    margin-bottom: 10px;
-
-  }
 `;
 
 export const TotalContainer = styled.div`
@@ -43,4 +38,31 @@ export const TotalContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+`;
+
+export const Div = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  flex-direction: column;
+  @media(min-width: 768px) {
+    flex-direction: row;
+    max-width: 1024px;
+    overflow-x: auto;
+    margin-bottom: 10px;
+  }
+`;
+
+export const ClearButton = styled.button`
+  border: none;
+  width: auto;
+  padding: 5px;
+  height: 30px;
+  color: white;
+  font-size: 20px;
+  border-radius: 6px;
+  background-color: #C51D62;
+  cursor: pointer;
 `;
