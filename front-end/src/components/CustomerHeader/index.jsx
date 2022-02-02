@@ -1,17 +1,17 @@
 import React from 'react';
 import { HeaderContainer } from '../../global-styles/globalComponents';
-import CustomerSideBar from '../CustomerSideBar';
-import { Flex, NavList, HamburguerIcon, RedirectButton } from './styles';
+// import CustomerSideBar from '../CustomerSideBar';
+import { Flex, NavList, RedirectButton } from './styles';
 import useHeader from '../../hooks/useHeader';
 
 const CustomerHeader = () => {
-  const { user, sideBar, setSideBar, logout, navigate } = useHeader();
+  const { user, logout, navigate } = useHeader();
 
   return (
     <HeaderContainer>
       <Flex>
-        <HamburguerIcon onClick={ () => setSideBar(true) } />
-        <CustomerSideBar open={ sideBar } setOpen={ setSideBar } />
+        {/* <HamburguerIcon onClick={ () => setSideBar(true) } />
+        <CustomerSideBar open={ sideBar } setOpen={ setSideBar } /> */}
         <NavList>
           <RedirectButton
             data-testid="customer_products__element-navbar-link-products"

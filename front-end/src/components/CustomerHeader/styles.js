@@ -20,13 +20,10 @@ export const HamburguerIcon = styled(GiHamburgerMenu)`
 `;
 
 export const NavList = styled.nav`
-  display: none;
-  @media(min-width: 768px) {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-  }
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
 `;
 
 export const RedirectButton = styled.button`
