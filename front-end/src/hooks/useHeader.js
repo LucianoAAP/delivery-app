@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import getUserInfo from '../utils/getLocalStorage';
+import getUserInfo from '../utils/getUserInfo';
 
 const useHeader = () => {
   const navigate = useNavigate();

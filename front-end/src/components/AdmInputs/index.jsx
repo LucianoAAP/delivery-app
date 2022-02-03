@@ -1,5 +1,5 @@
 import React from 'react';
-import useAdmin from '../../hooks/useAdmin';
+import { useAdmin } from '../../hooks';
 import { Label, Button, Input, H1, P } from '../FormLogin/style';
 import { AdmSection, Select } from './styles';
 
@@ -61,7 +61,7 @@ const AdmInputs = () => {
         Cadastrar
       </Button>
       <P
-        data-testid="admin_manage__element-invalid-registrer"
+        data-testid="admin_manage__element-invalid-register"
         hidden={ bool }
       >
         Email já cadastrado

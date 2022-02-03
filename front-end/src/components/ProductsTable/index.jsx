@@ -31,26 +31,23 @@ const ProductsTable = ({ products, userRole }) => (
       </tr>
     </thead>
     <tbody>
-      { products.map((product, index) => {
-        const { name, orderInfo: { quantity }, price } = product;
-        return (
-          <tr key={ `product-${index}` }>
-            <td data-testid={ getDataTestId('number', index, userRole) }>
-              { index + 1 }
-            </td>
-            <Name data-testid={ getDataTestId('name', index, userRole) }>{ name }</Name>
-            <Quantity data-testid={ getDataTestId('quantity', index, userRole) }>
-              { quantity }
-            </Quantity>
-            <td data-testid={ getDataTestId('unitPrice', index, userRole) }>
-              { getPrice(price) }
-            </td>
-            <td data-testid={ getDataTestId('subTotal', index, userRole) }>
-              { getPrice(price * quantity) }
-            </td>
-          </tr>
-        );
-      }) }
+      { products.map(({ name, orderInfo: { quantity }, price }, index) => (
+        <tr key={ `product-${index}` }>
+          <td data-testid={ getDataTestId('number', index, userRole) }>
+            { index + 1 }
+          </td>
+          <Name data-testid={ getDataTestId('name', index, userRole) }>{ name }</Name>
+          <Quantity data-testid={ getDataTestId('quantity', index, userRole) }>
+            { quantity }
+          </Quantity>
+          <td data-testid={ getDataTestId('unitPrice', index, userRole) }>
+            { getPrice(price) }
+          </td>
+          <td data-testid={ getDataTestId('subTotal', index, userRole) }>
+            { getPrice(price * quantity) }
+          </td>
+        </tr>
+      )) }
     </tbody>
   </table>
 );

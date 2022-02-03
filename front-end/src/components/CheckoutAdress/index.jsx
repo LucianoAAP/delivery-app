@@ -1,5 +1,5 @@
 import React from 'react';
-import useConfirmOrder from '../../hooks/useConfirmOrder';
+import { useConfirmOrder } from '../../hooks';
 import CheckoutAddressForm from '../CheckoutAddressForm';
 import { ConfirmContainer,
   PaperDiv,

@@ -1,5 +1,5 @@
 import React from 'react';
-import useProductList from '../../hooks/useProductList';
+import { useProductList } from '../../hooks';
 import ProductCard from '../ProductCard';
 import { ProductListContainer, ProductSection, FloatButtonCart } from './styles';
 

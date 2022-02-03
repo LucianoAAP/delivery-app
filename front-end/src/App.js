@@ -1,14 +1,16 @@
 import React from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
-import AdmScreen from './pages/AdmScreen';
-import Register from './pages/Register';
-import LoginPage from './pages/LoginPage';
-import CustomerPage from './pages/CustomerPage';
-import CustomerOrders from './pages/CustomerOrders';
-import CustomerOrderDetails from './pages/CustomerOrderDetails';
-import SellerOrders from './pages/SellerOrders';
-import SellerOrderDetails from './pages/SellerOrderDetails';
-import CustomerCheckout from './pages/CustomerCheckout';
+import {
+  LoginPage,
+  AdmScreen,
+  Register,
+  CustomerPage,
+  CustomerCheckout,
+  CustomerOrders,
+  CustomerOrderDetails,
+  SellerOrders,
+  SellerOrderDetails,
+} from './pages';
 import './index.css';
 
 const App = () => (

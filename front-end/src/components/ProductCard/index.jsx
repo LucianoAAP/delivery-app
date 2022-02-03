@@ -3,7 +3,7 @@ import { PropTypes } from 'prop-types';
 import { ProductContainer, ImageContainer,
   ProductImg, InfoContainer, Name, Price, Span,
   ChangeQuantity, QauntityInput } from './styles';
-import useCartQuantity from '../../hooks/useCartQuantity';
+import { useCartQuantity } from '../../hooks';
 
 const ProductCard = ({ product }) => {
   const { quantity, changeProductQuantity,

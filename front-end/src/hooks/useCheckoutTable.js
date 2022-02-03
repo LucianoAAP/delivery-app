@@ -3,11 +3,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import Swal from 'sweetalert2';
 import { addTotalPrice, clearCart, editQuantityCart } from '../redux/actions/cart';
 import { getPrice } from '../utils/formatManipulation';
+import useCheckLogin from './useCheckLogin';
 
 const useCheckoutTable = () => {
   const [totalPrice, setTotal] = useState('');
   const cartState = useSelector((state) => state.cart.cart);
   const dispatch = useDispatch();
+
+  useCheckLogin('customer');
 
   const tableHeaderItens = [
     'Item', 'Descrição', 'Quantidade', 'Valor unitário', 'Sub-total', 'Remover item',

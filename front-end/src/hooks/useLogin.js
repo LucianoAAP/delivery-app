@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import postLogin from '../services/postLogin';
-import getUserInfo from '../utils/getLocalStorage';
+import getUserInfo from '../utils/getUserInfo';
 
 const useLogin = () => {
   const [email, setEmail] = useState('');

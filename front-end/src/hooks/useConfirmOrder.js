@@ -1,9 +1,13 @@
 import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2';
-import createSale from '../services/createSale';
+import { useSelector, useDispatch } from 'react-redux';
+import io from 'socket.io-client';
+// import { useNavigate } from 'react-router-dom';
+// import Swal from 'sweetalert2';
 import getSellers from '../services/getSellers';
+import { clearCart } from '../redux/actions/cart';
+import createSale from '../services/createSale';
+
+const socket = io('http://localhost:3001');
 
 const INITIAL_BODY = {
   sellerId: '',
@@ -18,28 +22,30 @@ const useConfirmOrder = () => {
 
   const cartState = useSelector((state) => state.cart);
 
-  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const throwAlert = (fetchObj) => {
-    if (fetchObj.error) {
-      return (
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'Algo deu errado ao enviar seu pedido!',
-          timer: 2000,
-        })
-      );
-    }
-    return (
-      Swal.fire({
-        title: 'Tudo certo!',
-        text: 'seu pedido foi confirmado!',
-        icon: 'success',
-        timer: 2000,
-      }).then(() => navigate(`/customer/orders/${fetchObj.data.id}`))
-    );
-  };
+  // const navigate = useNavigate();
+
+  // const throwAlert = (fetchObj) => {
+  //   if (fetchObj.error) {
+  //     return (
+  //       Swal.fire({
+  //         icon: 'error',
+  //         title: 'Oops...',
+  //         text: 'Algo deu errado ao enviar seu pedido!',
+  //         timer: 2000,
+  //       })
+  //     );
+  //   }
+  //   return (
+  //     Swal.fire({
+  //       title: 'Tudo certo!',
+  //       text: 'seu pedido foi confirmado!',
+  //       icon: 'success',
+  //       timer: 2000,
+  //     }).then(() => navigate(`/customer/orders/${fetchObj.data.id}`))
+  //   );
+  // };
 
   const submitSale = async () => {
     const fetchObj = await createSale({ ...bodyInfo,
@@ -47,7 +53,11 @@ const useConfirmOrder = () => {
       products: cartState.cart,
       status: 'Pendente' });
 
-    return throwAlert(fetchObj);
+    socket.emit('statusUpdated');
+    dispatch(clearCart());
+
+    // return throwAlert(fetchObj);
+    window.location.href = `/customer/orders/${fetchObj.data.id}`;
   };
 
   const handleChange = (target) => {
@@ -55,6 +65,7 @@ const useConfirmOrder = () => {
   };
 
   const getAllSellers = async () => setSellers(await getSellers());
+
   useEffect(() => {
     getAllSellers();
   }, []);

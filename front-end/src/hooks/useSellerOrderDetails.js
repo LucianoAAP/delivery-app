@@ -1,19 +1,39 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import io from 'socket.io-client';
 import { useParams } from 'react-router';
-import { getSaleFromSeller, updateSale } from '../services/salesAPI';
-import getUserInfo from '../utils/getLocalStorage';
+import getSaleFromSeller from '../services/getSaleFromSeller';
+import updateSale from '../services/updateSale';
+import getUserInfo from '../utils/getUserInfo';
+
+const socket = io('http://localhost:3001');
 
 const useOrderDetails = () => {
   const { id: orderId } = useParams();
+  const mounted = useRef(false);
   const [order, setOrder] = useState({});
   const [preparingDisplay, setPreparingDisplay] = useState(true);
   const [dispatchDisplay, setDispatchDisplay] = useState(true);
 
-  const { id: userId, token } = getUserInfo();
+  const userId = getUserInfo('id');
 
   useEffect(() => {
-    getSaleFromSeller(userId, token).then((response) => setOrder(response[orderId - 1]));
-  }, [orderId, userId, token]);
+    mounted.current = true;
+    return () => {
+      mounted.current = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    const updateOrder = () => {
+      if (mounted.current) {
+        getSaleFromSeller(userId).then((response) => setOrder(response[orderId - 1]));
+      }
+    };
+
+    updateOrder();
+
+    socket.on('statusUpdated', () => updateOrder());
+  }, [orderId, userId]);
 
   useEffect(() => {
     if (order.status && order.status === 'Pendente') {
@@ -29,13 +49,17 @@ const useOrderDetails = () => {
   }, [order]);
 
   const prepareOrder = async () => {
-    await updateSale({ ...order, status: 'Preparando' }, token);
+    await updateSale({ ...order, status: 'Preparando' });
     setOrder({ ...order, status: 'Preparando' });
+
+    socket.emit('statusUpdated');
   };
 
   const dispatchOrder = async () => {
-    await updateSale({ ...order, status: 'Em Trânsito' }, token);
+    await updateSale({ ...order, status: 'Em Trânsito' });
     setOrder({ ...order, status: 'Em Trânsito' });
+
+    socket.emit('statusUpdated');
   };
 
   return {

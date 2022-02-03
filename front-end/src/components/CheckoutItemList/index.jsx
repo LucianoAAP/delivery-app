@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 import { CheckoutItensContainer, H1,
   TotalContainer, PaperDiv, ClearButton, Div } from './styles';
 import { getPrice } from '../../utils/formatManipulation';
-import useCheckoutTable from '../../hooks/useCheckoutTable';
+import { useCheckoutTable } from '../../hooks';
 
 const CheckoutItemlist = () => {
   const { totalPrice, removeFromCart, tableHeaderItens,

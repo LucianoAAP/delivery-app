@@ -1,5 +1,5 @@
 import React from 'react';
-import useLogin from '../../hooks/useLogin';
+import { useLogin } from '../../hooks';
 import checkForm from '../../utils';
 import { Button, Section, Input, Label, Main, H1, P } from './style';
 

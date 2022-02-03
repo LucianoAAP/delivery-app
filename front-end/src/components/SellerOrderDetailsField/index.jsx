@@ -1,6 +1,6 @@
 import React from 'react';
 import ProductsTable from '../ProductsTable';
-import useSellerOrderDetails from '../../hooks/useSellerOrderDetails';
+import { useSellerOrderDetails } from '../../hooks';
 import { getDate, getPrice, padNumber } from '../../utils/formatManipulation';
 import {
   ProductListContainer,

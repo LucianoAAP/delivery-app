@@ -1,7 +1,7 @@
 import React from 'react';
 import { HeaderContainer } from '../../global-styles/globalComponents';
 import { Flex, NavList, RedirectButton } from './styles';
-import useHeader from '../../hooks/useHeader';
+import { useHeader } from '../../hooks';
 
 const SellerHeader = () => {
   const { user, logout, navigate } = useHeader();
