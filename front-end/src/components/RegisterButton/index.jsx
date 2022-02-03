@@ -1,5 +1,5 @@
 import React from 'react';
-import useRegisterButton from '../../hooks/useRegisterButton';
+import { useRegisterButton } from '../../hooks';
 import Button from './style';
 
 const RegisterButton = () => {

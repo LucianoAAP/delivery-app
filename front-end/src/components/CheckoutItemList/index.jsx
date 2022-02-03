@@ -5,16 +5,26 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button';
-import { CheckoutItensContainer, H1, TotalContainer, PaperDiv } from './styles';
+import { CheckoutItensContainer, H1,
+  TotalContainer, PaperDiv, ClearButton, Div } from './styles';
 import { getPrice } from '../../utils/formatManipulation';
-import useCheckoutTable from '../../hooks/useCheckoutTable';
+import { useCheckoutTable } from '../../hooks';
 
 const CheckoutItemlist = () => {
-  const { totalPrice, removeFromCart, tableHeaderItens, cartState } = useCheckoutTable();
+  const { totalPrice, removeFromCart, tableHeaderItens,
+    cartState, clearStorageCart, getDataTestId } = useCheckoutTable();
 
   return (
     <CheckoutItensContainer>
-      <H1>Finalizar Pedido</H1>
+      <Div>
+        <H1>Finalizar Pedido</H1>
+        <ClearButton
+          type="button"
+          onClick={ () => clearStorageCart() }
+        >
+          Apagar carrinho
+        </ClearButton>
+      </Div>
       <PaperDiv elevation={ 3 }>
         <Table size="medium">
           <TableHead>
@@ -26,34 +36,22 @@ const CheckoutItemlist = () => {
             {cartState
               ? cartState.map((e, index) => (
                 <TableRow key={ e.id }>
-                  <TableCell
-                    data-testid="customer_checkout__element-order-table-item-number-"
-                  >
+                  <TableCell data-testid={ getDataTestId('number', index) }>
                     {index + 1}
                   </TableCell>
-                  <TableCell
-                    data-testid="customer_checkout__element-order-table-name-"
-                  >
+                  <TableCell data-testid={ getDataTestId('name', index) }>
                     {e.name}
                   </TableCell>
-                  <TableCell
-                    data-testid="customer_checkout__element-order-table-quantity-"
-                  >
+                  <TableCell data-testid={ getDataTestId('quantity', index) }>
                     {e.quantity}
                   </TableCell>
-                  <TableCell
-                    data-testid="customer_checkout__element-order-table-unit-price-"
-                  >
+                  <TableCell data-testid={ getDataTestId('unitPrice', index) }>
                     {getPrice(e.price)}
                   </TableCell>
-                  <TableCell
-                    data-testid="customer_checkout__element-order-table-sub-total-"
-                  >
+                  <TableCell data-testid={ getDataTestId('subTotal', index) }>
                     {getPrice(e.price * e.quantity)}
                   </TableCell>
-                  <TableCell
-                    data-testid="customer_checkout__element-order-table-remove-"
-                  >
+                  <TableCell data-testid={ getDataTestId('remove', index) }>
                     <Button
                       variant="contained"
                       color="secondary"
@@ -69,7 +67,7 @@ const CheckoutItemlist = () => {
       </PaperDiv>
       <TotalContainer>
         <h1
-          data-testid="customer_checkout__element-order-total-price"
+          data-testid={ getDataTestId('totalPrice') }
         >
           {`Total: ${totalPrice}`}
         </h1>

@@ -1,10 +1,8 @@
-import axios from 'axios';
+import api from './API';
 
-const postUserAdmin = async ({ name, email, password, role }, token) => {
+const postUserAdmin = async (adminBody) => {
   try {
-    const axiosPost = await axios.post('http://localhost:3001/users/admin',
-      { name, email, password, role },
-      { headers: { authorization: token } });
+    const axiosPost = await api.post('/users/admin', adminBody);
 
     return axiosPost.data;
   } catch (err) {

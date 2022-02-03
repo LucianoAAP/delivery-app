@@ -287,6 +287,9 @@ $RECYCLE.BIN/
 
 .vscode
 .coverage
+package.json 
+package-lock.json 
+.gitignore
 
 node_modules
 report-*.log

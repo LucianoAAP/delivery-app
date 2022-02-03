@@ -1,16 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { getSaleFromSeller } from '../../services/salesAPI';
+import React from 'react';
 import OrderCard from '../SellerOrderCard';
 import { OrderListContainer } from '../../global-styles/globalComponents';
-import getUserInfo from '../../utils/getLocalStorage';
+import { useSellerOrdersList } from '../../hooks';
 
 const SellerOrdersList = () => {
-  const [orders, setOrders] = useState([]);
-
-  useEffect(() => {
-    const { token, id } = getUserInfo();
-    getSaleFromSeller(id, token).then((response) => setOrders(response));
-  }, []);
+  const { orders } = useSellerOrdersList();
 
   return (
     <OrderListContainer>

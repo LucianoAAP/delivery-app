@@ -4,9 +4,9 @@ const { CreateUserAdmService } = require('../../services');
 const createUserAdm = async (req, res, _next) => {
   const { body } = req;
 
-  const newUser = await CreateUserAdmService(body);
+  const { id, name, email, role } = await CreateUserAdmService(body);
 
-  return res.status(CREATED).json(newUser);
+  return res.status(CREATED).json({ id, name, email, role });
 };
 
 module.exports = createUserAdm;

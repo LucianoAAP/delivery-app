@@ -1,11 +1,13 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import { ProductContainer, ImageContainer,
-  ProductImg, InfoContainer, Name, Price, Span, ChangeQuantity } from './styles';
-import useCartQuantity from '../../hooks/useCartQuantity';
+  ProductImg, InfoContainer, Name, Price, Span,
+  ChangeQuantity, QauntityInput } from './styles';
+import { useCartQuantity } from '../../hooks';
 
 const ProductCard = ({ product }) => {
-  const { quantity, changeProductQuantity } = useCartQuantity(product);
+  const { quantity, changeProductQuantity,
+    handleQuantityChange } = useCartQuantity(product);
 
   return (
     <ProductContainer>
@@ -27,7 +29,7 @@ const ProductCard = ({ product }) => {
           <Span
             data-testid={ `customer_products__element-card-price-${product.id}` }
           >
-            {product.price}
+            {product.price.replace(/\./, ',')}
           </Span>
         </Price>
         <ChangeQuantity>
@@ -38,11 +40,14 @@ const ProductCard = ({ product }) => {
           >
             -
           </button>
-          <p
+          <QauntityInput
+            type="number"
+            min="1"
+            max="1000"
+            value={ quantity }
             data-testid={ `customer_products__input-card-quantity-${product.id}` }
-          >
-            {quantity}
-          </p>
+            onChange={ ({ target }) => handleQuantityChange(target) }
+          />
           <button
             onClick={ () => changeProductQuantity('+') }
             data-testid={ `customer_products__button-card-add-item-${product.id}` }

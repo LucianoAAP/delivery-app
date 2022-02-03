@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { GiHamburgerMenu } from 'react-icons/gi';
 
 export const Flex = styled.div`
   width: 100%;
@@ -10,23 +9,11 @@ export const Flex = styled.div`
   background-color: #B8B8B8;
 `;
 
-export const HamburguerIcon = styled(GiHamburgerMenu)`
-  width: 30px;
-  height: 30px;
-  color: #000;
-  @media(min-width: 768px) {
-    display: none;
-  }
-`;
-
 export const NavList = styled.nav`
-  display: none;
-  @media(min-width: 768px) {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 20px;
-  }
 `;
 
 export const RedirectButton = styled.button`

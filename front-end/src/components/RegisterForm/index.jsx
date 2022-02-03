@@ -1,5 +1,5 @@
 import React from 'react';
-import useRegisterForm from '../../hooks/useRegisterForm';
+import { useRegisterForm } from '../../hooks';
 import { Div, Section, H1, Input, Label, BtnRegister, P } from './style';
 
 const RegisterForm = () => {

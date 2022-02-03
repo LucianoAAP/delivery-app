@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import getUserInfo from '../utils/getLocalStorage';
+import getUserInfo from '../utils/getUserInfo';
 
 const useHeader = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState('');
-  const [sideBar, setSideBar] = useState(false);
 
   useEffect(() => {
     const userName = getUserInfo('name');
@@ -13,11 +12,11 @@ const useHeader = () => {
   }, []);
 
   const logout = () => {
-    localStorage.removeItem('userInfo');
+    localStorage.removeItem('user');
     navigate('/login');
   };
 
-  return { user, sideBar, setSideBar, logout, navigate };
+  return { user, logout, navigate };
 };
 
 export default useHeader;

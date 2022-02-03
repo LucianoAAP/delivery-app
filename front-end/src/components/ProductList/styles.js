@@ -21,7 +21,7 @@ export const FloatButtonCart = styled.button`
   position: fixed;
   right: 30px;
   bottom: 30px;
-  width: 200px;
+  width: 240px;
   height: 50px;
   border-radius: 6px;
   display: flex;
@@ -29,6 +29,8 @@ export const FloatButtonCart = styled.button`
   justify-content: center;
   cursor: pointer;
   background-color: green;
+  color: white;
+  font-weight: 800;
   :hover {
     width: 210px;
     height: 60px;

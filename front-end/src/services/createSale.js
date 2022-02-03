@@ -1,26 +1,15 @@
-import axios from 'axios';
+import api from './API';
 
 const createSale = async (body) => {
   try {
-    const { token, id } = JSON.parse(localStorage.getItem('user'));
-    const headersconfig = {
-      headers: {
-        Authorization: token,
-      },
-    };
+    const bodyConfig = body;
 
-    const bodyConfig = {
-      userId: id,
-      status: 'Pendente',
-      ...body,
-    };
+    const axiosPost = await api.post('/sales', bodyConfig);
 
-    const axiosPost = await axios.post('http://localhost:3001/sales', bodyConfig, headersconfig);
-
-    return axiosPost.data;
+    return { data: axiosPost.data };
   } catch (err) {
     console.log(err);
-    return err;
+    return { error: err };
   }
 };
 

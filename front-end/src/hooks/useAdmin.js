@@ -1,12 +1,14 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import postUserAdmin from '../services/postUserAdmin';
-import getUserInfo from '../utils/getLocalStorage';
+import { addNewUser } from '../redux/actions/users';
 
 const useAdmin = () => {
   const [bool, setBool] = useState(true);
   const [info, setInfo] = useState({
     name: '', email: '', password: '', role: 'administrator',
   });
+  const dispatch = useDispatch();
 
   const handleChange = (target) => {
     const { name, value } = target;
@@ -17,12 +19,13 @@ const useAdmin = () => {
   };
 
   const submitUser = async (admInfo) => {
-    const token = getUserInfo('token');
-    const result = await postUserAdmin(admInfo, token);
+    const result = await postUserAdmin(admInfo);
     if (!result) return setBool(false);
+    if (!result.id) return setBool(false);
     setInfo({
       name: '', email: '', password: '', role: 'administrator',
     });
+    dispatch(addNewUser(result));
     return setBool(true);
   };
 
@@ -43,7 +46,9 @@ const useAdmin = () => {
     }
   };
 
-  return { handleChange, checkAdmin, submitUser, info, bool };
+  return {
+    handleChange, checkAdmin, submitUser, info, bool,
+  };
 };
 
 export default useAdmin;

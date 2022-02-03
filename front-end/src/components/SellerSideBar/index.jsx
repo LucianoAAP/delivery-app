@@ -3,14 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
 import { NavList, Flex, RedirectButton, CloseIcon } from './styles';
 import { SideBarContainer } from '../../global-styles/globalComponents';
-import getLocalStorage from '../../utils/getLocalStorage';
+import getUserInfo from '../../utils/getUserInfo';
 
 const CustomerSideBar = ({ open, setOpen }) => {
   const navigate = useNavigate();
   const [user, setUser] = useState('');
 
   useEffect(() => {
-    const userName = getLocalStorage('userName');
+    const userName = getUserInfo('name');
     setUser(userName);
   }, []);
 

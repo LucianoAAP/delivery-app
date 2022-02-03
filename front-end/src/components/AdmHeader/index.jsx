@@ -1,10 +1,10 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import { HeaderContainer } from '../../global-styles/globalComponents';
 import Flex from './styles';
+import { useHeader } from '../../hooks';
 
 const AdmHeader = () => {
-  const navigate = useNavigate();
+  const { logout, user } = useHeader();
 
   return (
     <HeaderContainer>
@@ -17,12 +17,12 @@ const AdmHeader = () => {
         <div
           data-testid="customer_products__element-navbar-user-full-name"
         >
-          Trybeer Admin
+          {user}
         </div>
         <button
           type="button"
           data-testid="customer_products__element-navbar-link-logout"
-          onClick={ () => navigate('/login') }
+          onClick={ () => logout() }
         >
           Sair
         </button>

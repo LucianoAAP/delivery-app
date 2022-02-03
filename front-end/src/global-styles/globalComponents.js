@@ -43,7 +43,7 @@ export const OrderListContainer = styled.section`
   justify-content: space-around;
 `;
 
-const MainTag = styled.main`
+export const MainTag = styled.main`
   align-items: center;
   display: flex;
   flex-flow: column nowrap;
@@ -53,5 +53,3 @@ const MainTag = styled.main`
   background-color: whitesmoke;
   min-height: 100vh;
 `;
-
-export default MainTag;

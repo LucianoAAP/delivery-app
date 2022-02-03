@@ -1,31 +1,32 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import getProducts from '../../services/getProducts';
+import React from 'react';
+import { useProductList } from '../../hooks';
 import ProductCard from '../ProductCard';
 import { ProductListContainer, ProductSection, FloatButtonCart } from './styles';
 
 const ProductList = () => {
-  const [products, setProducts] = useState([]);
-  const navigate = useNavigate();
-
-  const setProductsOnState = async () => {
-    const result = await getProducts();
-    setProducts(result);
-  };
-
-  useEffect(() => {
-    setProductsOnState();
-  }, []);
+  const { products, navigate, manupulatePrice, cartProducts } = useProductList();
 
   return (
     <ProductListContainer>
       <h1>LISTA DE PRODUTOS</h1>
       <ProductSection>
         {products.length > 0
-          ? products.map((e) => <ProductCard product={ e } key={ e.id } />) : null}
+          ? products.map((e) => (
+            <ProductCard
+              product={ e }
+              key={ e.id }
+            />
+          )) : null}
       </ProductSection>
-      <FloatButtonCart onClick={ () => navigate('/customer/checkout') }>
-        <h3 data-testid="customer_products__checkout-bottom-value">Ver Carrinho</h3>
+      <FloatButtonCart
+        type="button"
+        onClick={ () => navigate('/customer/checkout') }
+        data-testid="customer_products__button-cart"
+        disabled={ cartProducts.length < 1 }
+      >
+        <h3 data-testid="customer_products__checkout-bottom-value">
+          {`Ver Carrinho: ${manupulatePrice()}`}
+        </h3>
       </FloatButtonCart>
     </ProductListContainer>
   );

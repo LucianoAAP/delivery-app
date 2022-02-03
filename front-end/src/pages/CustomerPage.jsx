@@ -1,16 +1,12 @@
 import React from 'react';
 import { CustomerHeader, ProductList } from '../components';
-import MainTag from '../global-styles/globalComponents';
-import useCheckLogin from '../hooks/useCheckLogin';
+import { MainTag } from '../global-styles/globalComponents';
 
-const CustomerPage = () => {
-  useCheckLogin('customer');
-  return (
-    <MainTag>
-      <CustomerHeader />
-      <ProductList />
-    </MainTag>
-  );
-};
+const CustomerPage = () => (
+  <MainTag>
+    <CustomerHeader />
+    <ProductList />
+  </MainTag>
+);
 
 export default CustomerPage;

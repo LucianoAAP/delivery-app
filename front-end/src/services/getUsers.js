@@ -1,10 +1,8 @@
-import axios from 'axios';
-
-const USERS_ENDPOINT = 'http://localhost:3001/users';
+import api from './API';
 
 const getUsers = async () => {
   try {
-    const result = await axios.get(USERS_ENDPOINT);
+    const result = await api.get('/users');
 
     return result.data;
   } catch (err) {

@@ -1,13 +1,13 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import getUserInfo from '../utils/getLocalStorage';
+import getUserInfo from '../utils/getUserInfo';
 
 const useCheckLogin = (role) => {
   const navigate = useNavigate();
   useEffect(() => {
-    const getUser = getUserInfo();
+    const userInfo = getUserInfo();
 
-    if (!getUser.role || getUser.role !== role) return navigate('/login');
+    if (!userInfo.role || userInfo.role !== role) return navigate('/login');
   }, [navigate, role]);
 };
 

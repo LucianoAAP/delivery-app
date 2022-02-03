@@ -9,3 +9,7 @@ export const editQuantityCart = (product) => ({
 export const addTotalPrice = (price) => ({
   type: 'TOTAL_PRICE', payload: price,
 });
+
+export const clearCart = () => ({
+  type: 'CLEAR_CART',
+});

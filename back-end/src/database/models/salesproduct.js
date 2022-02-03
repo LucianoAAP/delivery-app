@@ -8,7 +8,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       tableName: 'salesProducts',
-      timestamps: false
+      timestamps: false,
+      underscored: true,
     }
   );
 
@@ -17,8 +18,7 @@ module.exports = (sequelize, DataTypes) => {
       as: 'products',
       through: SalesProduct,
       foreignKey: 'saleId',
-      otherKey: 'productId',
-      uniqueKey: 'quantity'
+      otherKey: 'productId'
     });
     models.Product.belongsToMany(models.Sale, {
       as: 'sales',

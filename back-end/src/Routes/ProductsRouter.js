@@ -7,11 +7,12 @@ const {
   UpdateProduct,
   DeleteProduct,
 } = require('../controllers');
+const authorizeToken = require('../middlewares/authorizeToken');
 
-productsRouter.get('/', rescue(ReadAllProducts));
-productsRouter.get('/:id', rescue(ReadProductById));
-productsRouter.post('/', rescue(CreateProduct));
-productsRouter.put('/:id', rescue(UpdateProduct));
-productsRouter.delete('/:id', rescue(DeleteProduct));
+productsRouter.get('/', rescue(authorizeToken), rescue(ReadAllProducts));
+productsRouter.get('/:id', rescue(authorizeToken), rescue(ReadProductById));
+productsRouter.post('/', rescue(authorizeToken), rescue(CreateProduct));
+productsRouter.put('/:id', rescue(authorizeToken), rescue(UpdateProduct));
+productsRouter.delete('/:id', rescue(authorizeToken), rescue(DeleteProduct));
 
 module.exports = productsRouter;

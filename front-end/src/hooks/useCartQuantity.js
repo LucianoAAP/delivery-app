@@ -1,11 +1,18 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { editQuantityCart, addToCart } from '../redux/actions/cart';
 
 const useCartQuantity = (product) => {
   const [quantity, setQuantity] = useState(0);
   const dispatch = useDispatch();
   const cartState = useSelector((state) => state.cart.cart);
+
+  useEffect(() => {
+    const targetProduct = cartState.find((e) => e.id === product.id);
+    if (targetProduct) {
+      return setQuantity(targetProduct.quantity);
+    }
+  }, [cartState, product.id]);
 
   const addCartProduct = () => {
     const currentQuantity = quantity + 1;
@@ -34,6 +41,14 @@ const useCartQuantity = (product) => {
     return setQuantity(currentQuantity);
   };
 
+  const handleQuantityChange = (target) => {
+    const removedProduct = cartState.filter((e) => e.id !== product.id);
+    setQuantity(() => Number(target.value));
+    return dispatch(editQuantityCart(
+      [...removedProduct, { ...product, quantity: Number(target.value) }],
+    ));
+  };
+
   const changeProductQuantity = (operator) => {
     if (operator === '-') {
       if (quantity === 0) return;
@@ -42,7 +57,7 @@ const useCartQuantity = (product) => {
     return addCartProduct();
   };
 
-  return { changeProductQuantity, quantity };
+  return { changeProductQuantity, quantity, handleQuantityChange };
 };
 
 export default useCartQuantity;
