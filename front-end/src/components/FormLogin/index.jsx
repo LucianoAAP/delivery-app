@@ -2,6 +2,7 @@ import React from 'react';
 import { useLogin } from '../../hooks';
 import checkForm from '../../utils';
 import { Button, Section, Input, Label, Main, H1, P } from './style';
+import RegisterButton from '../RegisterButton';
 
 const FormLogin = () => {
   const { handleChange, email, password, userLogin, bool } = useLogin();
@@ -46,6 +47,7 @@ const FormLogin = () => {
         >
           Usuário inválido
         </P>
+        <RegisterButton />
       </Section>
     </Main>
   );

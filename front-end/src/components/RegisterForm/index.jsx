@@ -1,12 +1,12 @@
 import React from 'react';
-import { useRegisterForm } from '../../hooks';
-import { Div, Section, H1, Input, Label, BtnRegister, P } from './style';
+import useRegisterForm from '../../hooks/useRegisterForm';
+import { Main, Section, H1, Input, Label, BtnRegister, P } from './style';
 
 const RegisterForm = () => {
   const { info, bool, handleChange, checkLogin, handleClick } = useRegisterForm();
 
   return (
-    <Div>
+    <Main>
       <Section>
         <H1>Cadastro</H1>
         <Label htmlFor="name">
@@ -57,7 +57,7 @@ const RegisterForm = () => {
           Nome ou Email já cadastrado
         </P>
       </Section>
-    </Div>
+    </Main>
   );
 };
 

@@ -1,13 +1,15 @@
 import styled from 'styled-components';
 
-export const Div = styled.div`
+export const Main = styled.main`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  margin-top: 10%
+  margin-top: 10%;
 `;
 
-export const H1 = styled.h1``;
+export const H1 = styled.h1`
+  margin-top: 30px
+`;
 
 export const Section = styled.section`
   display: flex;
@@ -17,7 +19,8 @@ export const Section = styled.section`
   width: 35%;
   min-width: 300px;
   max-width: 650px;
-  border: 2px solid black;
+  background-color: #FFF;
+  box-shadow: 0px 0px 20px #404040;
 `;
 
 export const Input = styled.input`
@@ -38,9 +41,12 @@ export const BtnRegister = styled.button`
   margin: 10px 0px;
   border-radius: 5px;
   font-size: 20px;
-  background-color: #90EE90;
+  background-color: #4B39FF;
   color: #FFF;
   margin-bottom: 30px;
+  :hover {
+    background-color: #22197d;
+  };
 `;
 
 export const P = styled.p`

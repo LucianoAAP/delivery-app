@@ -1,20 +1,26 @@
 import styled from 'styled-components';
 
-export const Section = styled.section`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
-  width: 35%;
-  min-width: 300px;
-`;
-
 export const Main = styled.main`
-  align-items: center;
   display: flex;
   flex-direction: row;
   justify-content: center;
-  width: 500px;
+  margin-top: 10%
+`;
+
+export const H1 = styled.h1`
+  margin-top: 30px
+`;
+
+export const Section = styled.section`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 35%;
+  min-width: 300px;
+  max-width: 650px;
+  background-color: #FFF;
+  box-shadow: 0px 0px 20px #404040;
 `;
 
 export const Input = styled.input`
@@ -30,20 +36,18 @@ export const Label = styled.label`
 `;
 
 export const Button = styled.button`
-  align-items: center;
-  background-color: #90EE90;
-  border-radius: 5px;
-  color: #FFF;
-  flex-direction: column;
-  font-size: 20px;
-  justify-content: center;
-  margin: 10px 0px;
-  margin-bottom: 30px;
-  padding:10px;
   width: 80%;
+  padding:10px;
+  margin: 10px 0px;
+  border-radius: 5px;
+  font-size: 20px;
+  background-color: #4B39FF;
+  color: #FFF;
+  margin-bottom: 10px;
+  :hover {
+    background-color: #22197d;
+  };
 `;
-
-export const H1 = styled.h1``;
 
 export const P = styled.p`
   color: red;
