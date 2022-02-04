@@ -134,6 +134,17 @@ describe('Testa criação de usuário Admin', () => {
           role: 'administrator',
         });
     });
+
+    after(async () => {
+      const token = await chai.request(app).post('/login')
+      .send({ email: 'adm@deliveryapp.com', password: '--adm2@21!!--' })
+      .then((res) => res.body.token);
+
+      const { body : { id } } = response;
+
+      await chai.request(app).delete(`/users/${id}`).set('authorization', token);
+    });
+
     it('Retorna status 201', () => {
       expect(response).to.have.status(201);
     });
