@@ -31,6 +31,18 @@ export const NavList = styled.nav`
     }
 `;
 
+export const Logo = styled.img`
+    width: 40px;
+    height: 40px;
+    margin: 10px 0;
+  filter: contrast(200%);
+  @media(min-width: 768px) {
+    width: 50px;
+    height: 50px;
+    margin-right: 10%;
+  }
+`;
+
 export const RedirectButton = styled.button`
 position: relative;
   border: none;

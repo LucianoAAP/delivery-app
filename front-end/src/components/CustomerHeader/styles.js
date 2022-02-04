@@ -8,8 +8,22 @@ export const Flex = styled.div`
   align-items: center;
   background-color: #0000;
   box-shadow: 2px 3px 10px gray;
+  flex-direction: column;
   @media(min-width: 768px) {
+    flex-direction: row;
     padding: 0 50px;
+  }
+`;
+
+export const Logo = styled.img`
+    width: 40px;
+    height: 40px;
+    margin: 10px 0;
+  filter: contrast(200%);
+  @media(min-width: 768px) {
+    width: 50px;
+    height: 50px;
+    margin-right: 10%;
   }
 `;
 
