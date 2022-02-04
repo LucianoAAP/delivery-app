@@ -2,12 +2,15 @@ import React from 'react';
 import ProductsTable from '../ProductsTable';
 import { useCustomerOrderDetails } from '../../hooks';
 import { getDate, getPrice, padNumber } from '../../utils/formatManipulation';
+
 import {
   ProductListContainer,
   DetailsTitle,
   StatusField,
   DetailsContainer,
   TotalPrice,
+  ConfirmButton,
+  PaperDiv,
 } from './styles';
 
 const dataTestIds = {
@@ -36,6 +39,7 @@ const CustomerOrderDetailsField = () => {
   return (
     <ProductListContainer>
       <DetailsTitle>Detalhes do pedido</DetailsTitle>
+
       <DetailsContainer>
         <StatusField>
           <span data-testid={ dataTestIds.id }>
@@ -50,20 +54,23 @@ const CustomerOrderDetailsField = () => {
           <span data-testid={ dataTestIds.status }>
             { status }
           </span>
-          <button
+          <ConfirmButton
             type="button"
             data-testid={ dataTestIds.delivery }
             disabled={ deliveredDisplay }
             onClick={ receiveOrder }
           >
             MARCAR COMO ENTREGUE
-          </button>
+          </ConfirmButton>
         </StatusField>
-        <ProductsTable products={ products } userRole="customer" />
+        <PaperDiv elevation={ 3 }>
+          <ProductsTable products={ products } userRole="customer" />
+        </PaperDiv>
         <TotalPrice data-testid={ dataTestIds.price }>
           { `Total: ${getPrice(totalPrice)}` }
         </TotalPrice>
       </DetailsContainer>
+
     </ProductListContainer>
   );
 };

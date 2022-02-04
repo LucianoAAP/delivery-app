@@ -1,8 +1,11 @@
 import React from 'react';
 import { RegisterForm } from '../components';
+import { MainTag } from '../global-styles/globalComponents';
 
 const Register = () => (
-  <RegisterForm />
+  <MainTag>
+    <RegisterForm />
+  </MainTag>
 );
 
 export default Register;

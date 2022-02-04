@@ -9,6 +9,8 @@ import {
   DetailsTop,
   StatusContainer,
   NumericInfo,
+  ClockIcon,
+  CheckIcon,
 } from './styles';
 
 const { number, string } = PropTypes;
@@ -24,13 +26,14 @@ const OrderCard = ({ orderId, status, date, totalPrice, id }) => {
     >
       <OrderContainer>
         <p>Pedido</p>
-        <p data-testid={ `customer_orders__element-order-id-${id}` }>
+        <span data-testid={ `customer_orders__element-order-id-${id}` }>
           { padNumber(orderId, PAD) }
-        </p>
+        </span>
       </OrderContainer>
       <OrderDetails>
         <DetailsTop>
-          <StatusContainer>
+          <StatusContainer status={ status }>
+            {status === 'Pendente' ? <ClockIcon status={ status } /> : <CheckIcon />}
             <p data-testid={ `customer_orders__element-delivery-status-${id}` }>
               { status }
             </p>
@@ -39,9 +42,9 @@ const OrderCard = ({ orderId, status, date, totalPrice, id }) => {
             <p data-testid={ `customer_orders__element-order-date-${id}` }>
               { getDate(date) }
             </p>
-            <p data-testid={ `customer_orders__element-card-price-${id}` }>
+            <span data-testid={ `customer_orders__element-card-price-${id}` }>
               { getPrice(totalPrice) }
-            </p>
+            </span>
           </NumericInfo>
         </DetailsTop>
       </OrderDetails>

@@ -23,21 +23,29 @@ export const PaperDiv = styled(Paper)`
 `;
 
 export const H1 = styled.h1`
+  font-family: 'Montserrat', sans-serif;
   font-size: 25px;
-  font-weight: 700;
+  font-weight: 800;
 `;
 
 export const TotalContainer = styled.div`
-  height: 40px;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  height: 50px;
   padding: 15px 30px;
   margin-top: 10px;
-  border-radius: 4px;
-  background-color: #149911;
-  color: white;
-  align-self: flex-end;
+  background-color: white;
+  border: 2px solid gray;
+  color: gray;
+  box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.3);
+  align-self: center;
   display: flex;
   align-items: center;
   justify-content: center;
+  @media(min-width:768px) {
+    align-self: flex-end;
+  }
 `;
 
 export const Div = styled.div`
@@ -45,7 +53,8 @@ export const Div = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 40px;
+  margin-bottom: 10px;
+  gap: 15px;
   flex-direction: column;
   @media(min-width: 768px) {
     flex-direction: row;
@@ -53,16 +62,4 @@ export const Div = styled.div`
     overflow-x: auto;
     margin-bottom: 10px;
   }
-`;
-
-export const ClearButton = styled.button`
-  border: none;
-  width: auto;
-  padding: 5px;
-  height: 30px;
-  color: white;
-  font-size: 20px;
-  border-radius: 6px;
-  background-color: #C51D62;
-  cursor: pointer;
 `;

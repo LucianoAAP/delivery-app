@@ -37,10 +37,15 @@ export const OrderListContainer = styled.section`
   max-width: 1024px;
   margin: auto;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  gap: 20px;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-around;
+  padding: 10px;
+  @media(min-width: 768px) {
+    justify-content: space-around;
+    flex-direction: row;
+  }
 `;
 
 export const MainTag = styled.main`

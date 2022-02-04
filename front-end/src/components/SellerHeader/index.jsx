@@ -25,9 +25,9 @@ const SellerHeader = () => {
             { user }
           </RedirectButton>
           <RedirectButton
-            data-testid="customer_products__element-navbar-link-logout"
             type="button"
-            onClick={ logout }
+            data-testid="customer_products__element-navbar-link-logout"
+            onClick={ () => logout() }
           >
             Sair
           </RedirectButton>

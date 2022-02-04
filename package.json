@@ -15,6 +15,7 @@
     "dev:prestart": "./scripts/prestart-dev.sh",
     "db:reset": "./scripts/reset-db-dev.sh",
     "db:reset:debug": "./scripts/reset-db-dev-debug.sh",
+    "db:reset:test": "./scripts/reset-db-test.sh",
     "test": "jest --runInBand --detectOpenHandles --forceExit --verbose",
     "test:dev": "NODE_ENV=development npm run jest -- --runInBand --detectOpenHandles --forceExit --verbose",
     "test:dev:open": "NODE_ENV=development HEADLESS=false npm run test:dev",

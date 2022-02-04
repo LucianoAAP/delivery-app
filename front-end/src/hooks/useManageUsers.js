@@ -8,6 +8,8 @@ const useManagerUsers = () => {
   const dispatch = useDispatch();
   const users = useSelector((state) => state.users.users);
 
+  const tableHeader = ['Item', 'Nome', 'E-mail', 'Tipo', 'Excluir'];
+
   const getAllUsers = useCallback(async () => {
     const allUsers = await getUsers();
     dispatch(reformUserState(allUsers));
@@ -22,7 +24,7 @@ const useManagerUsers = () => {
     getAllUsers();
   }, [getAllUsers]);
 
-  return { deleteUserById, users };
+  return { deleteUserById, users, tableHeader };
 };
 
 export default useManagerUsers;
