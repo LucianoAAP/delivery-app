@@ -1,8 +1,4 @@
-export const getDate = (dateTime) => {
-  const date = dateTime.split('T')[0];
-  const splittedDate = date.split('-');
-  return `${splittedDate[2]}/${splittedDate[1]}/${splittedDate[0]}`;
-};
+export const getDate = (dateTime) => new Date(dateTime).toLocaleDateString('pt-BR');
 
 export const getPrice = (price) => `R$ ${Number(price).toFixed(2)}`.replace('.', ',');
 
