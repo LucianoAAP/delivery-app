@@ -36,7 +36,7 @@ describe('Testa DeleteProduct', () => {
     }
   });
 
-  it('Deleta produto no banco', async () => {
+  it('Deleta produto no banco', () => {
     expect(missingProduct).to.have.status(404);
     expect(missingProduct.body).to.be.equal('Product does not exist');
   });

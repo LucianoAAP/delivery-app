@@ -43,7 +43,7 @@ describe('Testa DeleteSale', () => {
     }
   });
 
-  it('Deleta venda no banco', async () => {
+  it('Deleta venda no banco', () => {
     expect(missingSale).to.have.status(404);
     expect(missingSale.body).to.be.deep.equal('not found');
   });
