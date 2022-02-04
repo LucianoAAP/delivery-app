@@ -1,7 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import { Name, Quantity } from './styles';
 import { getPrice } from '../../utils/formatManipulation';
-import { Columns, Name, Quantity } from './styles';
 
 const { arrayOf, shape, string, number } = PropTypes;
 
@@ -20,36 +25,41 @@ const getDataTestId = (key, index, userRole) => {
 };
 
 const ProductsTable = ({ products, userRole }) => (
-  <table>
-    <thead>
-      <tr>
-        <Columns>Item</Columns>
-        <Columns>Descrição</Columns>
-        <th>Quantidade</th>
-        <Columns>Valor Unitário</Columns>
-        <Columns>Sub-total</Columns>
-      </tr>
-    </thead>
-    <tbody>
+  <Table size="medium">
+    <TableHead>
+      <TableRow>
+        <TableCell>Item</TableCell>
+        <TableCell>Descrição</TableCell>
+        <TableCell>Quantidade</TableCell>
+        <TableCell>Valor Unitário</TableCell>
+        <TableCell>Sub-total</TableCell>
+      </TableRow>
+    </TableHead>
+    <TableBody>
       { products.map(({ name, orderInfo: { quantity }, price }, index) => (
-        <tr key={ `product-${index}` }>
-          <td data-testid={ getDataTestId('number', index, userRole) }>
+        <TableRow key={ `product-${index}` }>
+          <TableCell data-testid={ getDataTestId('number', index, userRole) }>
             { index + 1 }
-          </td>
-          <Name data-testid={ getDataTestId('name', index, userRole) }>{ name }</Name>
-          <Quantity data-testid={ getDataTestId('quantity', index, userRole) }>
-            { quantity }
-          </Quantity>
-          <td data-testid={ getDataTestId('unitPrice', index, userRole) }>
+          </TableCell>
+          <TableCell>
+            <Name data-testid={ getDataTestId('name', index, userRole) }>{ name }</Name>
+          </TableCell>
+          <TableCell>
+            <Quantity data-testid={ getDataTestId('quantity', index, userRole) }>
+              { quantity }
+            </Quantity>
+          </TableCell>
+          <TableCell data-testid={ getDataTestId('unitPrice', index, userRole) }>
             { getPrice(price) }
-          </td>
-          <td data-testid={ getDataTestId('subTotal', index, userRole) }>
+          </TableCell>
+          <TableCell data-testid={ getDataTestId('subTotal', index, userRole) }>
             { getPrice(price * quantity) }
-          </td>
-        </tr>
+          </TableCell>
+        </TableRow>
       )) }
-    </tbody>
-  </table>
+    </TableBody>
+  </Table>
+
 );
 
 ProductsTable.propTypes = {

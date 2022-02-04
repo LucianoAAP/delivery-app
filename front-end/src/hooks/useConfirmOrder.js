@@ -5,6 +5,8 @@ import io from 'socket.io-client';
 // import Swal from 'sweetalert2';
 import getSellers from '../services/getSellers';
 import { clearCart } from '../redux/actions/cart';
+import getSaleFromCustomer from '../services/getSaleFromCustomer';
+import getUserInfo from '../utils/getUserInfo';
 import createSale from '../services/createSale';
 
 const socket = io('http://localhost:3001');
@@ -19,6 +21,8 @@ const useConfirmOrder = () => {
   const [sellers, setSellers] = useState();
   const [bodyInfo, setBodyInfo] = useState(INITIAL_BODY);
   const [disabledBtn, setDisabledBtn] = useState(true);
+
+  const userId = getUserInfo('id');
 
   const cartState = useSelector((state) => state.cart);
 
@@ -56,8 +60,12 @@ const useConfirmOrder = () => {
     socket.emit('statusUpdated');
     dispatch(clearCart());
 
+    const userOrders = await getSaleFromCustomer(userId);
     // return throwAlert(fetchObj);
-    window.location.href = `/customer/orders/${fetchObj.data.id}`;
+
+    const currentOrder = userOrders.findIndex((e) => e.id === fetchObj.data.id);
+    console.log(currentOrder);
+    window.location.href = `/customer/orders/${currentOrder + 1}`;
   };
 
   const handleChange = (target) => {

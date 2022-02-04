@@ -8,7 +8,6 @@ const ProductList = () => {
 
   return (
     <ProductListContainer>
-      <h1>LISTA DE PRODUTOS</h1>
       <ProductSection>
         {products.length > 0
           ? products.map((e) => (

@@ -6,6 +6,7 @@ export const Form = styled.div`
   align-items: center;
   flex-direction: column;
   gap: 30px;
+  font-family: 'Montserrat', sans-serif;
   justify-content: space-between;
   @media(min-width: 768px) {
     justify-content: space-between;

@@ -8,6 +8,8 @@ import {
   StatusField,
   DetailsContainer,
   TotalPrice,
+  PaperDiv,
+  ConfirmButton,
 } from './styles';
 
 const dataTestIds = {
@@ -38,6 +40,7 @@ const SellerOrderDetailsField = () => {
   return (
     <ProductListContainer>
       <DetailsTitle>Detalhes do pedido</DetailsTitle>
+
       <DetailsContainer>
         <StatusField>
           <span data-testid={ dataTestIds.id }>
@@ -49,28 +52,32 @@ const SellerOrderDetailsField = () => {
           <span data-testid={ dataTestIds.status }>
             { status }
           </span>
-          <button
+          <ConfirmButton
             type="button"
             data-testid={ dataTestIds.preparing }
             disabled={ preparingDisplay }
             onClick={ prepareOrder }
           >
             PREPARAR PEDIDO
-          </button>
-          <button
+          </ConfirmButton>
+
+          <ConfirmButton
             type="button"
             data-testid={ dataTestIds.dispatch }
             disabled={ dispatchDisplay }
             onClick={ dispatchOrder }
           >
             SAIU PARA ENTREGA
-          </button>
+          </ConfirmButton>
         </StatusField>
-        <ProductsTable products={ products } userRole="seller" />
+        <PaperDiv elevation={ 3 }>
+          <ProductsTable products={ products } userRole="seller" />
+        </PaperDiv>
         <TotalPrice data-testid={ dataTestIds.price }>
           { `Total: ${getPrice(totalPrice)}` }
         </TotalPrice>
       </DetailsContainer>
+
     </ProductListContainer>
   );
 };

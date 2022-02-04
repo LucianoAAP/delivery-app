@@ -4,7 +4,7 @@ import { GrMapLocation } from 'react-icons/gr';
 
 export const ConfirmContainer = styled.section`
   width: 100%;
-  margin: auto;
+  margin: 40px auto;
   padding: 10px;
   display: flex;
   flex-flow: column nowrap;
@@ -60,24 +60,28 @@ export const Label = styled.label`
 `;
 
 export const ConfirmButton = styled.button`
-  background-color: ${(props) => (props.disabled ? 'rgba(0, 0, 0, 0.2)' : '#149911')} ;
+  border-radius: 5px;
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  background-color: ${(props) => (props.disabled ? 'lightgray' : '#ED2757')};
+  letter-spacing: 0px;
+  font-weight: 300;
   border: none;
   padding: 10px;
   width: 100%;
   height: 50px;
-  color: white;
   font-size: 24px;
-  font-weight: 800;
   border-radius: 6px;
   cursor: ${(props) => (props.disabled ? 'default' : 'pointer')};
   @media(min-width: 768px) {
     width: 40%;
+    letter-spacing: 2px;
   }
 `;
 
 export const H1 = styled.h1`
+  font-family: 'Montserrat', sans-serif;
   font-size: 25px;
-  font-weight: 700;
   margin-bottom: 40px;
   @media(min-width: 950px) {
     margin-bottom: 10px;

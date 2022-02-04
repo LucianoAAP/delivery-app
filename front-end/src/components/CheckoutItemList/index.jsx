@@ -5,8 +5,9 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button';
+import { FaTrashAlt } from 'react-icons/fa';
 import { CheckoutItensContainer, H1,
-  TotalContainer, PaperDiv, ClearButton, Div } from './styles';
+  TotalContainer, PaperDiv, Div } from './styles';
 import { getPrice } from '../../utils/formatManipulation';
 import { useCheckoutTable } from '../../hooks';
 
@@ -18,12 +19,14 @@ const CheckoutItemlist = () => {
     <CheckoutItensContainer>
       <Div>
         <H1>Finalizar Pedido</H1>
-        <ClearButton
-          type="button"
+        <Button
+          variant="outlined"
+          endIcon={ <FaTrashAlt /> }
           onClick={ () => clearStorageCart() }
+          color="secondary"
         >
           Apagar carrinho
-        </ClearButton>
+        </Button>
       </Div>
       <PaperDiv elevation={ 3 }>
         <Table size="medium">

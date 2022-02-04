@@ -1,9 +1,5 @@
 import styled from 'styled-components';
 
-export const Columns = styled.th`
-  text-align: start;
-`;
-
 export const Name = styled.td`
   width: 50%;
 `;
