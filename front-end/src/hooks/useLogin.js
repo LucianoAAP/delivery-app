@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import Typography from '@material-ui/core/Typography';
 import postLogin from '../services/postLogin';
 import getUserInfo from '../utils/getUserInfo';
 
@@ -9,6 +10,23 @@ const useLogin = () => {
   const [bool, setBool] = useState(true);
 
   const navigate = useNavigate();
+
+  const generateCopyright = () => (
+    <Typography
+      variant="body2"
+      color="textSecondary"
+      align="center"
+      style={ { fontSize: '12px' } }
+    >
+      {'Copyright © '}
+      <Link to="/" color="inherit" href="https://material-ui.com/" style={ { fontSize: '14px' } }>
+        Fast Delivery
+      </Link>
+      {' '}
+      {new Date().getFullYear()}
+      .
+    </Typography>
+  );
 
   useEffect(() => {
     const userInfo = getUserInfo();
@@ -54,7 +72,7 @@ const useLogin = () => {
     }
   };
 
-  return { handleChange, email, password, userLogin, bool };
+  return { handleChange, email, password, userLogin, bool, generateCopyright };
 };
 
 export default useLogin;

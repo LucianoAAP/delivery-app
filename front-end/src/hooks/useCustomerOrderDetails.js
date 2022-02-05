@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import io from 'socket.io-client';
 import { useParams } from 'react-router';
-import getSaleFromCustomer from '../services/getSaleFromCustomer';
+import getSalesFromCustomer from '../services/getSalesFromCustomer';
 import updateSale from '../services/updateSale';
 import getUserInfo from '../utils/getUserInfo';
 
@@ -25,7 +25,7 @@ const useOrderDetails = () => {
   useEffect(() => {
     const updateOrder = () => {
       if (mounted.current) {
-        getSaleFromCustomer(userId).then((response) => setOrder(response[orderId - 1]));
+        getSalesFromCustomer(userId).then((response) => setOrder(response[orderId - 1]));
       }
     };
 

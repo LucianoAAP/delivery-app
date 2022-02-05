@@ -5,7 +5,7 @@ import io from 'socket.io-client';
 // import Swal from 'sweetalert2';
 import getSellers from '../services/getSellers';
 import { clearCart } from '../redux/actions/cart';
-import getSaleFromCustomer from '../services/getSaleFromCustomer';
+import getSalesFromCustomer from '../services/getSalesFromCustomer';
 import getUserInfo from '../utils/getUserInfo';
 import createSale from '../services/createSale';
 
@@ -60,7 +60,7 @@ const useConfirmOrder = () => {
     socket.emit('statusUpdated');
     dispatch(clearCart());
 
-    const userOrders = await getSaleFromCustomer(userId);
+    const userOrders = await getSalesFromCustomer(userId);
     // return throwAlert(fetchObj);
 
     const currentOrder = userOrders.findIndex((e) => e.id === fetchObj.data.id);

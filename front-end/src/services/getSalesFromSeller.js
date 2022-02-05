@@ -1,6 +1,6 @@
 import api from './API';
 
-const getSaleFromSeller = async (seller) => {
+const getSalesFromSeller = async (seller) => {
   try {
     const result = await api.get('/sales');
 
@@ -10,4 +10,4 @@ const getSaleFromSeller = async (seller) => {
   }
 };
 
-export default getSaleFromSeller;
+export default getSalesFromSeller;

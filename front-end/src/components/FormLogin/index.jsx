@@ -1,15 +1,18 @@
 import React from 'react';
 import { useLogin } from '../../hooks';
 import checkForm from '../../utils';
-import { Button, Section, Input, Label, Main, H1, P } from './style';
+import { Button, Section, Input,
+  Label, Main, H1, P, Logo, ButtonsContainer, Typography } from './style';
 import RegisterButton from '../RegisterButton';
 
 const FormLogin = () => {
-  const { handleChange, email, password, userLogin, bool } = useLogin();
+  const { handleChange, email, password,
+    userLogin, bool, generateCopyright } = useLogin();
 
   return (
     <Main>
       <Section>
+        <Logo src="https://cdn.discordapp.com/attachments/888025163139002382/939188740331536384/logoDelivery.png" alt="Logo" />
         <H1>Login</H1>
         <Label htmlFor="inputEmail">
           Email
@@ -33,21 +36,24 @@ const FormLogin = () => {
             onChange={ ({ target }) => handleChange(target) }
           />
         </Label>
-        <Button
-          disabled={ checkForm(email, password) }
-          type="button"
-          data-testid="common_login__button-login"
-          onClick={ () => userLogin(email, password) }
-        >
-          LOGIN
-        </Button>
-        <P
-          data-testid="common_login__element-invalid-email"
-          hidden={ bool }
-        >
-          Usuário inválido
-        </P>
-        <RegisterButton />
+        <ButtonsContainer>
+          <Button
+            disabled={ checkForm(email, password) }
+            type="button"
+            data-testid="common_login__button-login"
+            onClick={ () => userLogin(email, password) }
+          >
+            LOGIN
+          </Button>
+          <RegisterButton />
+          <P
+            data-testid="common_login__element-invalid-email"
+            hidden={ bool }
+          >
+            Usuário inválido
+          </P>
+        </ButtonsContainer>
+        <Typography>{generateCopyright()}</Typography>
       </Section>
     </Main>
   );
