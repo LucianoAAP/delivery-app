@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import io from 'socket.io-client';
-import getSaleFromCustomer from '../services/getSaleFromCustomer';
+import getSalesFromCustomer from '../services/getSalesFromCustomer';
 import getUserInfo from '../utils/getUserInfo';
 
 const socket = io('http://localhost:3001');
@@ -20,7 +20,7 @@ const useCustomerOrdersList = () => {
   useEffect(() => {
     const updateOrder = () => {
       if (mounted.current) {
-        getSaleFromCustomer(userId).then((response) => setOrders(response));
+        getSalesFromCustomer(userId).then((response) => setOrders(response));
       }
     };
 
