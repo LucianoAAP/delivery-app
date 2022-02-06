@@ -1,21 +1,21 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
 import renderWithReduxAndRouter from './renderWithReduxAndRouter';
-import {CustomerPage} from '../../pages';
-import localStorageMock from './mocks/localstorageMocks.json'
-import productMock from './mocks/productMocks'
-import getProducts from '../../services/getProducts'
+import { CustomerPage } from '../../pages';
+import { customerUserInfoMock } from './mocks/localStorageMock';
+import productMock from './mocks/productMock';
+import getProducts from '../../services/getProducts';
 import { act } from 'react-dom/test-utils';
-import userEvent from '@testing-library/user-event'
-jest.mock('../../services/getProducts')
+import userEvent from '@testing-library/user-event';
+jest.mock('../../services/getProducts');
 
 describe('Testa pagina de produtos do consumidor:', () => {
 
   beforeEach(() => {
     jest.spyOn(Object.getPrototypeOf(window.localStorage), 'getItem')
-      .mockImplementation(() => JSON.stringify(localStorageMock));
+      .mockImplementation(customerUserInfoMock);
 
-      getProducts.mockResolvedValue(productMock)
+      getProducts.mockResolvedValue(productMock);
   })
 
   describe('Header do consumidor', () => {
@@ -25,15 +25,16 @@ describe('Testa pagina de produtos do consumidor:', () => {
     })
 
     it('Nome do consumidor esta no Header' , () => {
-      const userName = screen.getByTestId('customer_products__element-navbar-user-full-name')
+      const userName = screen
+        .getByTestId('customer_products__element-navbar-user-full-name');
       expect(userName).toBeDefined();
       expect(userName.innerHTML).toBe('Cliente Zé Birita');
     })
 
     it('Existe um botão "sair" que faz logout', () => {
-      const exitButton = screen.getByRole('button', {name: /sair/i})
+      const exitButton = screen.getByRole('button', {name: /sair/i});
       expect(exitButton).toBeDefined();
-      userEvent.click(exitButton)
+      userEvent.click(exitButton);
       expect(window.location.pathname).toBe('/login')
     })
   })

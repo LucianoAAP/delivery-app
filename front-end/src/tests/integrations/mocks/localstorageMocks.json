@@ -1,7 +1,0 @@
-{
-  "id": 3,
-  "name": "Cliente Zé Birita",
-  "email": "zebirita@email.com",
-  "role": "customer",
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywibmFtZSI6IkNsaWVudGUgWsOpIEJpcml0YSIsImVtYWlsIjoiemViaXJpdGFAZW1haWwuY29tIiwicGFzc3dvcmQiOiIxYzM3NDY2YzE1OTc1NWNlMWZhMTgxYmQyNDdjYjkyNSIsInJvbGUiOiJjdXN0b21lciIsImlhdCI6MTY0NDA1MTY2NCwiZXhwIjoxNjQ0MDk0ODY0fQ.pGK1BPUGTBLLYQnHHrI6NL_etobgyHGPCnFglXjhkrI"
-}

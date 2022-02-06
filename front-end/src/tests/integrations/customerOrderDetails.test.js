@@ -5,21 +5,21 @@ import { screen, fireEvent } from '@testing-library/react';
 // import { act } from 'react-dom/test-utils';
 import renderWithReduxAndRouter from './renderWithReduxAndRouter';
 import App from '../../App';
-// import SellerOrders from '../../pages/SellerOrders';
-// import SellerOrderDetails from '../../pages/SellerOrderDetails';
-import sellerOrdersMock from './mocks/ordersMock';
-import { sellerUserInfoMock } from './mocks/localStorageMock';
-import getSalesFromSeller from '../../services/getSalesFromSeller';
+// import CustomerOrders from '../../pages/CustomerOrders';
+// import CustomerOrderDetails from '../../pages/CustomerOrderDetails';
+import customerOrdersMock from './mocks/ordersMock';
+import { customerUserInfoMock } from './mocks/localStorageMock';
+import getSalesFromCustomer from '../../services/getSalesFromCustomer';
 // import updateSale from '../../services/updateSale';
-jest.mock('../../services/getSalesFromSeller');
+jest.mock('../../services/getSalesFromCustomer');
 // jest.mock('../../services/updateSale');
 // jest.mock('react-router');
 
-describe('Testa SellerOrderDetails', () => {
+describe('Testa CustomerOrderDetails', () => {
   beforeEach(() => {
     jest.spyOn(Object.getPrototypeOf(window.localStorage), 'getItem')
-      .mockImplementation(sellerUserInfoMock);
-    getSalesFromSeller.mockResolvedValue(sellerOrdersMock);
+      .mockImplementation(customerUserInfoMock);
+    getSalesFromCustomer.mockResolvedValue(customerOrdersMock);
     // updateSale.mockImplementation(() => true);
     // jest.mock('react-router-dom', () => ({
     //   ...jest.requireActual('react-router-dom'), // use actual for all non-hook parts
@@ -32,8 +32,8 @@ describe('Testa SellerOrderDetails', () => {
   it('Renderiza os componentes', async () => {
     renderWithReduxAndRouter(<App />,
       {},
-      { route: '/seller/orders/1' });
-    // renderWithReduxAndRouter(<SellerOrderDetails />);
+      { route: '/customer/orders/1' });
+    // renderWithReduxAndRouter(<CustomerOrderDetails />);
     const productsNav = await screen
       .findByTestId('customer_products__element-navbar-link-orders');
     const userName = await screen
@@ -42,15 +42,15 @@ describe('Testa SellerOrderDetails', () => {
       .findByTestId('customer_products__element-navbar-link-logout');
     // const title = await screen.findByText('Detalhes do produto');
     // const orderLabel = await screen
-    //   .findByTestId('seller_order_details__element-order-details-label-order-id');
+    //   .findByTestId('customer_order_details__element-order-details-label-order-id');
     // const orderDate = await screen
-    //   .findByTestId('seller_order_details__element-order-details-label-order-date');
+    //   .findByTestId('customer_order_details__element-order-details-label-order-date');
     // const status = await screen
-    //   .findByTestId('seller_order_details__element-order-details-label-delivery-status');
+    //   .findByTestId('customer_order_details__element-order-details-label-delivery-status');
     // const prepareButton = await screen
-    //   .findByTestId('seller_order_details__button-preparing-check');
+    //   .findByTestId('customer_order_details__button-preparing-check');
     // const sendButton = await screen
-    //   .findByTestId('seller_order_details__button-dispatch-check');
+    //   .findByTestId('customer_order_details__button-dispatch-check');
     expect(productsNav).toBeInTheDocument();
     expect(userName).toBeInTheDocument();
     expect(logoutNav).toBeInTheDocument();
@@ -63,9 +63,9 @@ describe('Testa SellerOrderDetails', () => {
   });
 
   // it('Renderiza as informações corretas', () => {
-  //   renderWithReduxAndRouter(<SellerOrderDetails />,
+  //   renderWithReduxAndRouter(<CustomerOrderDetails />,
   //     {},
-  //     { route: '/seller/orders/1' });
+  //     { route: '/customer/orders/1' });
   //   const userName = screen
   //     .getByTestId('customer_products__element-navbar-user-full-name');
   //   expect(userName.innerHTML).toBe('Fulana Pereira');
