@@ -39,7 +39,6 @@ const CustomerOrderDetailsField = () => {
   return (
     <ProductListContainer>
       <DetailsTitle>Detalhes do pedido</DetailsTitle>
-
       <DetailsContainer>
         <StatusField>
           <span data-testid={ dataTestIds.id }>
