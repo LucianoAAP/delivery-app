@@ -5,7 +5,6 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import { Name, Quantity } from './styles';
 import { getPrice } from '../../utils/formatManipulation';
 
 const { arrayOf, shape, string, number } = PropTypes;
@@ -41,13 +40,11 @@ const ProductsTable = ({ products, userRole }) => (
           <TableCell data-testid={ getDataTestId('number', index, userRole) }>
             { index + 1 }
           </TableCell>
-          <TableCell>
-            <Name data-testid={ getDataTestId('name', index, userRole) }>{ name }</Name>
+          <TableCell data-testid={ getDataTestId('name', index, userRole) }>
+            { name }
           </TableCell>
-          <TableCell>
-            <Quantity data-testid={ getDataTestId('quantity', index, userRole) }>
-              { quantity }
-            </Quantity>
+          <TableCell data-testid={ getDataTestId('quantity', index, userRole) }>
+            { quantity }
           </TableCell>
           <TableCell data-testid={ getDataTestId('unitPrice', index, userRole) }>
             { getPrice(price) }

@@ -7,20 +7,20 @@ import renderWithReduxAndRouter from './renderWithReduxAndRouter';
 import App from '../../App';
 // import SellerOrders from '../../pages/SellerOrders';
 // import SellerOrderDetails from '../../pages/SellerOrderDetails';
-import sellerOrdersMock from './mocks/sellerOrdersMock';
-import localStorageMock from './mocks/localStorageMock';
+import sellerOrdersMock from './mocks/ordersMock';
+import { sellerUserInfoMock } from './mocks/localStorageMock';
 import getSalesFromSeller from '../../services/getSalesFromSeller';
-import updateSale from '../../services/updateSale';
+// import updateSale from '../../services/updateSale';
 jest.mock('../../services/getSalesFromSeller');
-jest.mock('../../services/updateSale');
+// jest.mock('../../services/updateSale');
 // jest.mock('react-router');
 
 describe('Testa SellerOrderDetails', () => {
   beforeEach(() => {
     jest.spyOn(Object.getPrototypeOf(window.localStorage), 'getItem')
-      .mockImplementation(localStorageMock);
+      .mockImplementation(sellerUserInfoMock);
     getSalesFromSeller.mockResolvedValue(sellerOrdersMock);
-    updateSale.mockImplementation(() => true);
+    // updateSale.mockImplementation(() => true);
     // jest.mock('react-router-dom', () => ({
     //   ...jest.requireActual('react-router-dom'), // use actual for all non-hook parts
     //   useParams: () => ({

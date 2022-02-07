@@ -2,7 +2,7 @@ import React from 'react';
 import { screen } from '@testing-library/react';
 import renderWithReduxAndRouter from './renderWithReduxAndRouter';
 import usersAPI from './mocks/users';
-import localStorageUser from './mocks/localStorageUser';
+import { admUserInfoMock } from './mocks/localStorageMock';
 import getUsers from '../../services/getUsers';
 import AdmScreen from '../../pages/AdmScreen';
 jest.mock('../../services/getUsers');
@@ -10,7 +10,7 @@ jest.mock('../../services/getUsers');
 describe('Testa página de <AdmScreen />', () => {
   beforeAll(async () => {
     jest.spyOn(Object.getPrototypeOf(window.localStorage), 'getItem')
-      .mockImplementation(() => JSON.stringify(localStorageUser));
+      .mockImplementation(admUserInfoMock);
 
     getUsers.mockResolvedValue(usersAPI);
     renderWithReduxAndRouter(<AdmScreen />);

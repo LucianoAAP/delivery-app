@@ -3,15 +3,15 @@ import { screen } from '@testing-library/react';
 // import { act } from 'react-dom/test-utils';
 import renderWithReduxAndRouter from './renderWithReduxAndRouter';
 import SellerOrders from '../../pages/SellerOrders';
-import sellerOrdersMock from './mocks/sellerOrdersMock';
-import localStorageMock from './mocks/localStorageMock';
+import sellerOrdersMock from './mocks/ordersMock';
+import { sellerUserInfoMock } from './mocks/localStorageMock';
 import getSalesFromSeller from '../../services/getSalesFromSeller';
 jest.mock('../../services/getSalesFromSeller');
 
 describe('Testa SellerOrders', () => {
   beforeEach(() => {
     jest.spyOn(Object.getPrototypeOf(window.localStorage), 'getItem')
-      .mockImplementation(localStorageMock);
+      .mockImplementation(sellerUserInfoMock);
     getSalesFromSeller.mockResolvedValue(sellerOrdersMock);
     renderWithReduxAndRouter(<SellerOrders />);
   });

@@ -88,7 +88,7 @@ export const ButtonsContainer = styled.div`
   }
 `;
 
-export const Typography = styled.p`
+export const Typography = styled.div`
   align-self: center;
   position: absolute;
   bottom: 3px;

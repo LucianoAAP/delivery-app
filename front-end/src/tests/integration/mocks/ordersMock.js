@@ -1,4 +1,4 @@
-const sellerOrders = [
+const orders = [
   {
     id: 1,
     totalPrice: '30.00',
@@ -45,4 +45,4 @@ const sellerOrders = [
   },
 ];
 
-export default sellerOrders;
+export default orders;

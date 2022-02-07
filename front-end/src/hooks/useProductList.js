@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import getProducts from '../services/getProducts';
@@ -8,9 +8,17 @@ import useCheckLogin from './useCheckLogin';
 const useProductList = () => {
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
+  const mounted = useRef(false);
   const cartProducts = useSelector((state) => state.cart.cart);
 
   useCheckLogin('customer');
+
+  useEffect(() => {
+    mounted.current = true;
+    return () => {
+      mounted.current = false;
+    };
+  }, []);
 
   const manupulatePrice = () => {
     const result = cartProducts
@@ -20,11 +28,11 @@ const useProductList = () => {
 
   const setProductsOnState = async () => {
     const result = await getProducts();
-    setProducts(result);
+    setProducts(() => result);
   };
 
   useEffect(() => {
-    setProductsOnState();
+    if (mounted.current) return setProductsOnState();
   }, []);
 
   return { products, navigate, manupulatePrice, cartProducts };
