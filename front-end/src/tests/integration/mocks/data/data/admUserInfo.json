@@ -1,7 +1,0 @@
-{
-  "email": "adm@deliveyapp.com",
-  "id": 1,
-  "name": "Delivery App Admin",
-  "role": "administrator",
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IkRlbGl2ZXJ5IEFwcCBBZG1pbiIsImVtYWlsIjoiYWRtQGRlbGl2ZXJ5YXBwLmNvbSIsInBhc3N3b3JkIjoiYTRjODZlZGVjYzVhZWUwNmVmZjhmZGVkYTY5ZTBkMDQiLCJyb2xlIjoiYWRtaW5pc3RyYXRvciIsImlhdCI6MTY0NDAxOTkzMCwiZXhwIjoxNjQ0MDYzMTMwfQ.gLfmLo1vpCVibx6q3dbuBHG2xdS4mDI8dTuiF7tbU28"
-}

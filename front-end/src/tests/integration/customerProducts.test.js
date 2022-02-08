@@ -131,7 +131,14 @@ describe('Testa pagina de produtos do consumidor:', () => {
       userEvent.click(addButton)
       expect(screen.getByTestId('customer_products__button-cart')).toHaveTextContent(/ 57,20/i)
     })
-
+    
+    it('Botão leva para pagina "/customer/checkout"', () => {
+      const addButton = screen.getByTestId('customer_products__button-card-add-item-1')
+      userEvent.click(addButton)
+      const cartButton = screen.getByTestId('customer_products__button-cart')
+      userEvent.click(cartButton)
+      expect(window.location.pathname).toBe('/customer/checkout')
+    })
   })
 
 });

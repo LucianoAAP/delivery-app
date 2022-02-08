@@ -63,7 +63,11 @@ const CustomerOrderDetailsField = () => {
           </ConfirmButton>
         </StatusField>
         <PaperDiv elevation={ 3 }>
-          <ProductsTable products={ products } userRole="customer" />
+          {
+            products
+              ? <ProductsTable products={ products } userRole="customer" />
+              : null
+          }
         </PaperDiv>
         <TotalPrice data-testid={ dataTestIds.price }>
           { `Total: ${getPrice(totalPrice)}` }

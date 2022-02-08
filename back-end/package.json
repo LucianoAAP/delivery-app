@@ -17,7 +17,7 @@
     "test:complete": "npm run db:reset:test && NODE_ENV=test mocha src/tests/**/*$NAME*.test.js --exit",
     "test:coverage": "nyc --all npm run test",
     "test:coverage:json": "nyc --all --reporter=json-summary npm run test",
-    "test:coverage:report": "nyc --all --reporter=lcov npm run test",
+    "test:coverage:report": "npm run with-env react-scripts test -- --coverage --coverageReporters=\"lcov\" --watchAll=false --testFailureExitCode=0 --detectOpenHandles --runInBand --forceExit",
     "lint": "eslint --no-inline-config --no-error-on-unmatched-pattern -c .eslintrc.json ."
   },
   "dependencies": {

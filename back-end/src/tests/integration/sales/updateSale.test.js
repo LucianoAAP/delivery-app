@@ -55,7 +55,7 @@ describe('Testa updateSale', () => {
         .send({ email: 'adm@deliveryapp.com', password: '--adm2@21!!--' })
         .then((res) => res.body.token);
 
-      const { body : { id } } = response;
+      const { id } = sale;
 
       await chai.request(app).delete(`/sales/${id}`).set('authorization', token);
     } catch (e) {
