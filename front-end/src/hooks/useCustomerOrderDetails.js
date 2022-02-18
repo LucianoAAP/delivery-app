@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import io from 'socket.io-client';
 import { useParams } from 'react-router';
 import getSalesFromCustomer from '../services/getSalesFromCustomer';
@@ -22,17 +22,19 @@ const useOrderDetails = () => {
     };
   }, []);
 
-  useEffect(() => {
-    const updateOrder = () => {
-      if (mounted.current) {
-        getSalesFromCustomer(userId).then((response) => setOrder(response[orderId - 1]));
-      }
-    };
-
-    updateOrder();
-
-    socket.on('statusUpdated', () => updateOrder());
+  const getCurrentOrder = useCallback(async () => {
+    const sale = await getSalesFromCustomer(userId);
+    return setOrder(() => sale[orderId - 1]);
   }, [orderId, userId]);
+
+  useEffect(() => {
+    if (mounted.current) {
+      getCurrentOrder();
+    }
+    socket.emit('statusUpdated');
+  }, [getCurrentOrder]);
+
+  socket.on('statusUpdated', () => getCurrentOrder());
 
   useEffect(() => {
     if (order.status && order.status === 'Em Trânsito') {

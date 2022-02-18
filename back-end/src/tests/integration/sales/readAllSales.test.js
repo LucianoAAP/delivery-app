@@ -78,6 +78,21 @@ describe('Testa ReadAllSales', () => {
       .set('authorization', token);
   });
 
+  after(async () => {
+    try {
+      const token = await chai.request(app).post('/login')
+        .send({ email: 'adm@deliveryapp.com', password: '--adm2@21!!--' })
+        .then((res) => res.body.token);
+
+      const deletions = response.body.map(({ id }) => (chai.request(app)
+        .delete(`/sales/${id}`).set('authorization', token)));
+
+      await Promise.all(deletions);
+    } catch (e) {
+      console.log(e.message);
+    }
+  });
+
   it('Retorna a lista de vendas correta', () => {
     expect(response).to.have.status(200);
     expect(response.body).to.be.an('array');

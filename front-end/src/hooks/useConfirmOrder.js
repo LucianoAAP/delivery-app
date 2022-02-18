@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import io from 'socket.io-client';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 // import Swal from 'sweetalert2';
 import getSellers from '../services/getSellers';
 import { clearCart } from '../redux/actions/cart';
@@ -28,7 +28,7 @@ const useConfirmOrder = () => {
 
   const dispatch = useDispatch();
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   // const throwAlert = (fetchObj) => {
   //   if (fetchObj.error) {
@@ -64,8 +64,8 @@ const useConfirmOrder = () => {
     // return throwAlert(fetchObj);
 
     const currentOrder = userOrders.findIndex((e) => e.id === fetchObj.data.id);
-    console.log(currentOrder);
-    window.location.href = `/customer/orders/${currentOrder + 1}`;
+
+    return navigate(`/customer/orders/${currentOrder + 1}`);
   };
 
   const handleChange = (target) => {
