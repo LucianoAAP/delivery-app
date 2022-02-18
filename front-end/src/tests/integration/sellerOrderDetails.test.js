@@ -15,6 +15,11 @@ jest.mock('../../services/getSalesFromSeller');
 // jest.mock('../../services/updateSale');
 // jest.mock('react-router');
 
+jest.mock('socket.io-client', () => jest.fn(() => ({
+  emit: jest.fn(),
+  on: jest.fn(),
+})));
+
 describe('Testa SellerOrderDetails', () => {
   beforeEach(() => {
     jest.spyOn(Object.getPrototypeOf(window.localStorage), 'getItem')

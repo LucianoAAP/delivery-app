@@ -137,7 +137,7 @@ describe('Testa pagina de checkout do consumidor:', () => {
       userEvent.type(inputAddress, 'Av Aurellion Mid')
       userEvent.type(inputNumber, "911")
       userEvent.click(confirmButton)
-      await waitFor(() => expect(window.location.pathname).toBe('/customer/orders/0'))
+      await waitFor(() => expect(window.location.pathname).toBe('/customer/orders/1'))
       const products = screen.getByRole('button', {
         name: /produtos/i
       })

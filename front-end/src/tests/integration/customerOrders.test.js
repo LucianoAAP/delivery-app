@@ -9,6 +9,11 @@ import { customerUserInfoMock } from './mocks/localStorageMock';
 import getSalesFromCustomer from '../../services/getSalesFromCustomer';
 jest.mock('../../services/getSalesFromCustomer');
 
+jest.mock('socket.io-client', () => jest.fn(() => ({
+  emit: jest.fn(),
+  on: jest.fn(),
+})));
+
 describe('Testa CustomerOrders', () => {
   beforeEach(() => {
     jest.spyOn(Object.getPrototypeOf(window.localStorage), 'getItem')
