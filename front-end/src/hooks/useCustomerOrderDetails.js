@@ -23,18 +23,16 @@ const useOrderDetails = () => {
   }, []);
 
   const getCurrentOrder = useCallback(async () => {
-    const sale = await getSalesFromCustomer(userId);
-    return setOrder(() => sale[orderId - 1]);
+    if (mounted.current) {
+      const sale = await getSalesFromCustomer(userId);
+      return setOrder(() => sale[orderId - 1]);
+    }
   }, [orderId, userId]);
 
   useEffect(() => {
-    if (mounted.current) {
-      getCurrentOrder();
-    }
-    socket.emit('statusUpdated');
+    getCurrentOrder();
+    socket.on('statusUpdated', () => getCurrentOrder());
   }, [getCurrentOrder]);
-
-  socket.on('statusUpdated', () => getCurrentOrder());
 
   useEffect(() => {
     if (order.status && order.status === 'Em Trânsito') {
