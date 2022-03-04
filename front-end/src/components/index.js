@@ -10,6 +10,9 @@ import FormLogin from './FormLogin';
 import RegisterForm from './RegisterForm';
 import CheckoutItemlist from './CheckoutItemList';
 import CheckoutConfirm from './CheckoutAdress';
+import AdmHeader from './AdmHeader';
+import AdmInputs from './AdmInputs';
+import AdmTable from './AdmTable';
 
 export {
   CustomerHeader,
@@ -24,4 +27,7 @@ export {
   FormLogin,
   CheckoutItemlist,
   CheckoutConfirm,
+  AdmHeader,
+  AdmInputs,
+  AdmTable,
 };

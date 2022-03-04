@@ -3,15 +3,12 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import getProducts from '../services/getProducts';
 import { getPrice } from '../utils/formatManipulation';
-import useCheckLogin from './useCheckLogin';
 
 const useProductList = () => {
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
   const mounted = useRef(false);
   const cartProducts = useSelector((state) => state.cart.cart);
-
-  useCheckLogin('customer');
 
   useEffect(() => {
     mounted.current = true;

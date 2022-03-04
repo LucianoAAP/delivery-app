@@ -7,6 +7,7 @@ const getUsers = async () => {
     return result.data;
   } catch (err) {
     console.log({ error: err });
+    return { error: err.response };
   }
 };
 
