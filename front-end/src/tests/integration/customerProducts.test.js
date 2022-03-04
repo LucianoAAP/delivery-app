@@ -3,10 +3,13 @@ import { screen } from '@testing-library/react';
 import renderWithReduxAndRouter from './renderWithReduxAndRouter';
 import { CustomerPage } from '../../pages';
 import { customerUserInfoMock } from './mocks/localStorageMock';
+import usersAPI from './mocks/usersMock';
 import productMock from './mocks/productMock';
+import getUsers from '../../services/getUsers';
 import getProducts from '../../services/getProducts';
 import { act } from 'react-dom/test-utils';
 import userEvent from '@testing-library/user-event';
+jest.mock('../../services/getUsers');
 jest.mock('../../services/getProducts');
 
 describe('Testa pagina de produtos do consumidor:', () => {
@@ -15,7 +18,8 @@ describe('Testa pagina de produtos do consumidor:', () => {
     jest.spyOn(Object.getPrototypeOf(window.localStorage), 'getItem')
       .mockImplementation(customerUserInfoMock);
 
-      getProducts.mockResolvedValue(productMock);
+    getUsers.mockResolvedValue(usersAPI);
+    getProducts.mockResolvedValue(productMock);
   })
 
   describe('Header do consumidor', () => {

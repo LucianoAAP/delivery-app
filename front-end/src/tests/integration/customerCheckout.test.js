@@ -3,12 +3,25 @@ import { screen, waitFor } from '@testing-library/react';
 import renderWithReduxAndRouter from './renderWithReduxAndRouter';
 import { CustomerCheckout } from '../../pages';
 import { customerUserInfoMock } from './mocks/localStorageMock';
+import usersAPI from './mocks/usersMock';
 import { act } from 'react-dom/test-utils';
 import cartItens from './mocks/checkoutMocks';
 import userEvent from '@testing-library/user-event';
-import getSallers from '../../services/getSellers'
-import sellersMock from './mocks/sellersMock'
-jest.mock('../../services/getSellers')
+import getUsers from '../../services/getUsers';
+import getSellers from '../../services/getSellers';
+import createSale from '../../services/createSale';
+import getSalesFromCustomer from '../../services/getSalesFromCustomer';
+import sellersMock from './mocks/sellersMock';
+import customerOrdersMock from './mocks/ordersMock';
+jest.mock('../../services/getUsers');
+jest.mock('../../services/getSellers');
+jest.mock('../../services/createSale');
+jest.mock('../../services/getSalesFromCustomer');
+
+jest.mock('socket.io-client', () => jest.fn(() => ({
+  emit: jest.fn(),
+  on: jest.fn(),
+})));
 
 describe('Testa pagina de checkout do consumidor:', () => {
 
@@ -16,7 +29,8 @@ describe('Testa pagina de checkout do consumidor:', () => {
     jest.spyOn(Object.getPrototypeOf(window.localStorage), 'getItem')
       .mockImplementation(customerUserInfoMock);
 
-      getSallers.mockResolvedValue(sellersMock)
+    getUsers.mockResolvedValue(usersAPI);
+    getSellers.mockResolvedValue(sellersMock)
   })
 
   describe('Tabela dos itens presentes do carrinho de compras', () => {
@@ -88,6 +102,8 @@ describe('Testa pagina de checkout do consumidor:', () => {
   describe('Confirmação de compra no formulário', () => {
 
     beforeEach(async () => {
+      createSale.mockResolvedValue({ data: customerOrdersMock[0] });
+      getSalesFromCustomer.mockResolvedValue(customerOrdersMock);
       await act( async () => renderWithReduxAndRouter(<CustomerCheckout />, {initialState: cartItens}));
     })
 

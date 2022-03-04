@@ -7,10 +7,13 @@ import renderWithReduxAndRouter from './renderWithReduxAndRouter';
 import App from '../../App';
 // import SellerOrders from '../../pages/SellerOrders';
 // import SellerOrderDetails from '../../pages/SellerOrderDetails';
+import usersAPI from './mocks/usersMock';
 import sellerOrdersMock from './mocks/ordersMock';
 import { sellerUserInfoMock } from './mocks/localStorageMock';
+import getUsers from '../../services/getUsers';
 import getSalesFromSeller from '../../services/getSalesFromSeller';
 // import updateSale from '../../services/updateSale';
+jest.mock('../../services/getUsers');
 jest.mock('../../services/getSalesFromSeller');
 // jest.mock('../../services/updateSale');
 // jest.mock('react-router');
@@ -24,6 +27,7 @@ describe('Testa SellerOrderDetails', () => {
   beforeEach(() => {
     jest.spyOn(Object.getPrototypeOf(window.localStorage), 'getItem')
       .mockImplementation(sellerUserInfoMock);
+    getUsers.mockResolvedValue(usersAPI);
     getSalesFromSeller.mockResolvedValue(sellerOrdersMock);
     // updateSale.mockImplementation(() => true);
     // jest.mock('react-router-dom', () => ({

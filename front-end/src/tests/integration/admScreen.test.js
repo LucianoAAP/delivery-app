@@ -1,7 +1,7 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
 import renderWithReduxAndRouter from './renderWithReduxAndRouter';
-import usersAPI from './mocks/users';
+import usersAPI from './mocks/usersMock';
 import { admUserInfoMock } from './mocks/localStorageMock';
 import getUsers from '../../services/getUsers';
 import AdmScreen from '../../pages/AdmScreen';

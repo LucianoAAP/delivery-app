@@ -4,9 +4,12 @@ import userEvent from '@testing-library/user-event';
 // import { act } from 'react-dom/test-utils';
 import renderWithReduxAndRouter from './renderWithReduxAndRouter';
 import CustomerOrders from '../../pages/CustomerOrders';
+import usersAPI from './mocks/usersMock';
 import customerOrdersMock from './mocks/ordersMock';
 import { customerUserInfoMock } from './mocks/localStorageMock';
+import getUsers from '../../services/getUsers';
 import getSalesFromCustomer from '../../services/getSalesFromCustomer';
+jest.mock('../../services/getUsers');
 jest.mock('../../services/getSalesFromCustomer');
 
 jest.mock('socket.io-client', () => jest.fn(() => ({
@@ -18,6 +21,7 @@ describe('Testa CustomerOrders', () => {
   beforeEach(() => {
     jest.spyOn(Object.getPrototypeOf(window.localStorage), 'getItem')
       .mockImplementation(customerUserInfoMock);
+    getUsers.mockResolvedValue(usersAPI);
     getSalesFromCustomer.mockResolvedValue(customerOrdersMock);
     renderWithReduxAndRouter(<CustomerOrders />);
   });
