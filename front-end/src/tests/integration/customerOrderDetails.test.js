@@ -1,11 +1,11 @@
 import React from 'react';
 // import { useParams } from 'react-router';
-import { screen, fireEvent } from '@testing-library/react';
-// import userEvent from '@testing-library/user-event';
+import { screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 // import { act } from 'react-dom/test-utils';
 import renderWithReduxAndRouter from './renderWithReduxAndRouter';
-import App from '../../App';
-// import CustomerOrders from '../../pages/CustomerOrders';
+// import App from '../../App';
+import CustomerOrders from '../../pages/CustomerOrders';
 // import CustomerOrderDetails from '../../pages/CustomerOrderDetails';
 import usersAPI from './mocks/usersMock';
 import customerOrdersMock from './mocks/ordersMock';
@@ -39,17 +39,20 @@ describe('Testa CustomerOrderDetails', () => {
   });
 
   it('Renderiza os componentes', async () => {
-    renderWithReduxAndRouter(<App />,
-      {},
-      { route: '/customer/orders/1' });
-    // renderWithReduxAndRouter(<CustomerOrderDetails />);
+    // renderWithReduxAndRouter(<App />,
+    //   {},
+    //   { route: '/customer/orders/1' });
+    renderWithReduxAndRouter(<CustomerOrders />);
+    const orderNumber = await screen.findByTestId('customer_orders__element-order-id-1');
+    userEvent.click(orderNumber);
+    expect(window.location.pathname).toBe('/customer/orders/1');
     const productsNav = await screen
       .findByTestId('customer_products__element-navbar-link-orders');
     const userName = await screen
       .findByTestId('customer_products__element-navbar-user-full-name');
     const logoutNav = await screen
       .findByTestId('customer_products__element-navbar-link-logout');
-    // const title = await screen.findByText('Detalhes do produto');
+    // const title = await screen.findByText('Detalhes do pedido');
     // const orderLabel = await screen
     //   .findByTestId('customer_order_details__element-order-details-label-order-id');
     // const orderDate = await screen

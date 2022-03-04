@@ -1,6 +1,6 @@
 import React from 'react';
 // import { useParams } from 'react-router';
-import { screen, fireEvent } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 // import userEvent from '@testing-library/user-event';
 // import { act } from 'react-dom/test-utils';
 import renderWithReduxAndRouter from './renderWithReduxAndRouter';
@@ -49,7 +49,7 @@ describe('Testa SellerOrderDetails', () => {
       .findByTestId('customer_products__element-navbar-user-full-name');
     const logoutNav = await screen
       .findByTestId('customer_products__element-navbar-link-logout');
-    // const title = await screen.findByText('Detalhes do produto');
+    // const title = await screen.findByText('Detalhes do pedido');
     // const orderLabel = await screen
     //   .findByTestId('seller_order_details__element-order-details-label-order-id');
     // const orderDate = await screen
