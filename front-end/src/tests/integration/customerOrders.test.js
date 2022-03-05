@@ -1,27 +1,35 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
+import axios from 'axios';
 import renderWithReduxAndRouter from './renderWithReduxAndRouter';
 import CustomerOrders from '../../pages/CustomerOrders';
 import usersAPI from './mocks/usersMock';
 import customerOrdersMock from './mocks/ordersMock';
 import { customerUserInfoMock } from './mocks/localStorageMock';
-import getUsers from '../../services/getUsers';
-import getSalesFromCustomer from '../../services/getSalesFromCustomer';
-jest.mock('../../services/getUsers');
-jest.mock('../../services/getSalesFromCustomer');
+
+jest.mock('socket.io-client', () => jest.fn(() => ({
+  emit: jest.fn(),
+  on: jest.fn(),
+})));
+
+jest.mock("axios", () => ({
+  create: jest.fn().mockReturnThis(),
+  interceptors: {
+    request: { eject: jest.fn(), use: jest.fn() },
+    response: { eject: jest.fn(), use: jest.fn() },
+  },
+  get: jest.fn(() => Promise.resolve()),
+}));
 
 describe('Testa CustomerOrders', () => {
   beforeEach(async () => {
-    jest.mock('socket.io-client', () => jest.fn(() => ({
-      emit: jest.fn(),
-      on: jest.fn(),
-    })));
     jest.spyOn(Object.getPrototypeOf(window.localStorage), 'getItem')
       .mockImplementation(customerUserInfoMock);
-    getUsers.mockResolvedValue(usersAPI);
-    getSalesFromCustomer.mockResolvedValue(customerOrdersMock);
+    axios.get.mockImplementation((path) => {
+      return Promise
+        .resolve(path === '/users' ? { data: usersAPI } : { data: customerOrdersMock });
+    });
     await act(async () => renderWithReduxAndRouter(<CustomerOrders />));
   });
 

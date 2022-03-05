@@ -1,25 +1,30 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
+import axios from 'axios';
 import renderWithReduxAndRouter from './renderWithReduxAndRouter';
 import { CustomerPage } from '../../pages';
 import { customerUserInfoMock } from './mocks/localStorageMock';
 import usersAPI from './mocks/usersMock';
 import productMock from './mocks/productMock';
-import getUsers from '../../services/getUsers';
-import getProducts from '../../services/getProducts';
 import { act } from 'react-dom/test-utils';
 import userEvent from '@testing-library/user-event';
-jest.mock('../../services/getUsers');
-jest.mock('../../services/getProducts');
+jest.mock("axios", () => ({
+  create: jest.fn().mockReturnThis(),
+  interceptors: {
+    request: { eject: jest.fn(), use: jest.fn() },
+    response: { eject: jest.fn(), use: jest.fn() },
+  },
+  get: jest.fn(() => Promise.resolve()),
+}));
 
 describe('Testa pagina de produtos do consumidor:', () => {
 
   beforeEach(() => {
     jest.spyOn(Object.getPrototypeOf(window.localStorage), 'getItem')
       .mockImplementation(customerUserInfoMock);
-
-    getUsers.mockResolvedValue(usersAPI);
-    getProducts.mockResolvedValue(productMock);
+    axios.get.mockImplementation((path) => {
+      return Promise.resolve(path === '/users' ? { data: usersAPI } : { data: productMock });
+    });
   });
 
   afterAll(() => {

@@ -1,26 +1,35 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
+import axios from 'axios';
 import renderWithReduxAndRouter from './renderWithReduxAndRouter';
 import usersAPI from './mocks/usersMock';
 import SellerOrders from '../../pages/SellerOrders';
 import sellerOrdersMock from './mocks/ordersMock';
 import { sellerUserInfoMock } from './mocks/localStorageMock';
-import getUsers from '../../services/getUsers';
-import getSalesFromSeller from '../../services/getSalesFromSeller';
-jest.mock('../../services/getUsers');
-jest.mock('../../services/getSalesFromSeller');
+
+jest.mock('socket.io-client', () => jest.fn(() => ({
+  emit: jest.fn(),
+  on: jest.fn(),
+})));
+
+jest.mock("axios", () => ({
+  create: jest.fn().mockReturnThis(),
+  interceptors: {
+    request: { eject: jest.fn(), use: jest.fn() },
+    response: { eject: jest.fn(), use: jest.fn() },
+  },
+  get: jest.fn(() => Promise.resolve()),
+}));
 
 describe('Testa SellerOrders', () => {
   beforeEach(async () => {
-    jest.mock('socket.io-client', () => jest.fn(() => ({
-      emit: jest.fn(),
-      on: jest.fn(),
-    })));
     jest.spyOn(Object.getPrototypeOf(window.localStorage), 'getItem')
       .mockImplementation(sellerUserInfoMock);
-    getUsers.mockResolvedValue(usersAPI);
-    getSalesFromSeller.mockResolvedValue(sellerOrdersMock);
+    axios.get.mockImplementation((path) => {
+      return Promise
+        .resolve(path === '/users' ? { data: usersAPI } : { data: sellerOrdersMock });
+    });
     await act(async () => renderWithReduxAndRouter(<SellerOrders />));
   });
 
