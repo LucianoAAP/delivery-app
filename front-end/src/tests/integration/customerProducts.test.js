@@ -22,6 +22,10 @@ describe('Testa pagina de produtos do consumidor:', () => {
     getProducts.mockResolvedValue(productMock);
   });
 
+  afterAll(() => {
+    jest.resetAllMocks();
+  });
+
   describe('Header do consumidor', () => {
 
     beforeEach(async () => {
