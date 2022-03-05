@@ -8,7 +8,7 @@ const useManagerUsers = () => {
   const dispatch = useDispatch();
   const users = useSelector((state) => state.users.users);
 
-  const tableHeader = ['Item', 'Nome', 'E-mail', 'Tipo', 'Excluir'];
+  const tableHeader = ['Id', 'Nome', 'E-mail', 'Tipo', 'Excluir'];
 
   const getAllUsers = useCallback(async () => {
     const allUsers = await getUsers();

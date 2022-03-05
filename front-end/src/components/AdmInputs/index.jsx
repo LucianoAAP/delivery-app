@@ -13,6 +13,7 @@ const AdmInputs = () => {
         <Label htmlFor="adminName">
           Nome
           <Input
+            id="adminName"
             name="name"
             value={ info.name }
             type="text"
@@ -24,6 +25,7 @@ const AdmInputs = () => {
         <Label htmlFor="admEmail">
           Email
           <Input
+            id="admEmail"
             data-testid="admin_manage__input-email"
             type="email"
             name="email"
@@ -35,6 +37,7 @@ const AdmInputs = () => {
         <Label htmlFor="admPassword">
           Senha
           <Input
+            id="admPassword"
             data-testid="admin_manage__input-password"
             type="password"
             name="password"
