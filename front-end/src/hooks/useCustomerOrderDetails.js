@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import io from 'socket.io-client';
 import { useParams } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import getSalesFromCustomer from '../services/getSalesFromCustomer';
 import updateSale from '../services/updateSale';
 import getUserInfo from '../utils/getUserInfo';
@@ -8,6 +9,7 @@ import getUserInfo from '../utils/getUserInfo';
 const socket = io('http://localhost:3001');
 
 const useOrderDetails = () => {
+  const navigate = useNavigate();
   const mounted = useRef(false);
   const { id: orderId } = useParams();
   const [order, setOrder] = useState({});
@@ -23,15 +25,19 @@ const useOrderDetails = () => {
   }, []);
 
   useEffect(() => {
-    const updateOrder = () => {
+    const updateOrder = async () => {
       if (mounted.current) {
-        getSalesFromCustomer(userId).then((response) => setOrder(response[orderId - 1]));
+        const sales = await getSalesFromCustomer(userId);
+        if (sales.error) return navigate('/customer/orders');
+        const sale = sales[orderId - 1];
+        if (!sale) return navigate('/customer/orders');
+        setOrder(sale);
       }
     };
 
     updateOrder();
     socket.on('statusUpdated', () => updateOrder());
-  }, [orderId, userId]);
+  }, [orderId, userId, navigate]);
 
   useEffect(() => {
     if (mounted.current && order.status && order.status === 'Em Trânsito') {

@@ -5,7 +5,7 @@ import { CustomerCheckout } from '../../pages';
 import { customerUserInfoMock } from './mocks/localStorageMock';
 import usersAPI from './mocks/usersMock';
 import { act } from 'react-dom/test-utils';
-import cartItens from './mocks/checkoutMocks';
+import cartItems from './mocks/checkoutMocks';
 import userEvent from '@testing-library/user-event';
 import getUsers from '../../services/getUsers';
 import getSellers from '../../services/getSellers';
@@ -18,14 +18,13 @@ jest.mock('../../services/getSellers');
 jest.mock('../../services/createSale');
 jest.mock('../../services/getSalesFromCustomer');
 
-jest.mock('socket.io-client', () => jest.fn(() => ({
-  emit: jest.fn(),
-  on: jest.fn(),
-})));
-
 describe('Testa pagina de checkout do consumidor:', () => {
 
   beforeEach(() => {
+    jest.mock('socket.io-client', () => jest.fn(() => ({
+      emit: jest.fn(),
+      on: jest.fn(),
+    })));
     jest.spyOn(Object.getPrototypeOf(window.localStorage), 'getItem')
       .mockImplementation(customerUserInfoMock);
 
@@ -33,10 +32,17 @@ describe('Testa pagina de checkout do consumidor:', () => {
     getSellers.mockResolvedValue(sellersMock);
   });
 
+  afterEach(() => {
+    jest.resetAllMocks();
+  });
+
   describe('Tabela dos itens presentes do carrinho de compras', () => {
 
     beforeEach(async () => {
-      await act( async () => renderWithReduxAndRouter(<CustomerCheckout />, {initialState: cartItens}));
+      await act(async () => renderWithReduxAndRouter(
+        <CustomerCheckout />,
+        { initialState: cartItems },
+      ));
     });
 
     it('Os itens do estado são renderizados no carrinho de compras' , () => {
@@ -104,7 +110,10 @@ describe('Testa pagina de checkout do consumidor:', () => {
     beforeEach(async () => {
       createSale.mockResolvedValue({ data: customerOrdersMock[0] });
       getSalesFromCustomer.mockResolvedValue(customerOrdersMock);
-      await act( async () => renderWithReduxAndRouter(<CustomerCheckout />, {initialState: cartItens}));
+      await act(async () => renderWithReduxAndRouter(
+        <CustomerCheckout />,
+        { initialState: cartItems }),
+      );
     });
 
     it('O botão de confirmar compra está desativado', () => {
@@ -160,8 +169,5 @@ describe('Testa pagina de checkout do consumidor:', () => {
       userEvent.click(products);
       await waitFor(() => expect(window.location.pathname).toBe('/customer/products'));
     });
-
   });
-
-
 });

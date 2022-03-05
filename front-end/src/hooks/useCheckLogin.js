@@ -5,6 +5,7 @@ import getUsers from '../services/getUsers';
 
 const useCheckLogin = (role) => {
   const navigate = useNavigate();
+
   useEffect(() => {
     const checkAuthorization = async (userInfo) => {
       const users = await getUsers();

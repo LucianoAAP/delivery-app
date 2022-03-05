@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import io from 'socket.io-client';
 import { useParams } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import getSalesFromSeller from '../services/getSalesFromSeller';
 import updateSale from '../services/updateSale';
 import getUserInfo from '../utils/getUserInfo';
@@ -8,6 +9,7 @@ import getUserInfo from '../utils/getUserInfo';
 const socket = io('http://localhost:3001');
 
 const useOrderDetails = () => {
+  const navigate = useNavigate();
   const { id: orderId } = useParams();
   const mounted = useRef(false);
   const [order, setOrder] = useState({});
@@ -24,16 +26,20 @@ const useOrderDetails = () => {
   }, []);
 
   useEffect(() => {
-    const updateOrder = () => {
+    const updateOrder = async () => {
       if (mounted.current) {
-        getSalesFromSeller(userId).then((response) => setOrder(response[orderId - 1]));
+        const sales = await getSalesFromSeller(userId);
+        if (sales.error) return navigate('/seller/orders');
+        const sale = sales[orderId - 1];
+        if (!sale) return navigate('/seller/orders');
+        setOrder(sale);
       }
     };
 
     updateOrder();
 
     socket.on('statusUpdated', () => updateOrder());
-  }, [orderId, userId]);
+  }, [orderId, userId, navigate]);
 
   useEffect(() => {
     if (order.status && order.status === 'Pendente') {

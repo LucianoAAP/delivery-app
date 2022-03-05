@@ -7,6 +7,7 @@ const getSalesFromCustomer = async (customer) => {
     return result.data.filter((sale) => sale.userId === customer);
   } catch (err) {
     console.log({ error: err });
+    return { error: err.response };
   }
 };
 

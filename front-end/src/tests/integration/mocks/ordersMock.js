@@ -35,7 +35,7 @@ const orders = [
       {
         id: 2,
         name: 'Heineken 600ml',
-        price: 7.50,
+        price: '7.50',
         urlImage: 'http://localhost:3001/images/heineken_600ml.jpg',
         orderInfo: {
           quantity: 2,
