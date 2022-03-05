@@ -34,16 +34,17 @@ const useOrderDetails = () => {
   }, [orderId, userId]);
 
   useEffect(() => {
-    if (order.status && order.status === 'Em Trânsito') {
+    if (mounted.current && order.status && order.status === 'Em Trânsito') {
       setDeliveredDisplay(false);
-    } else {
-      setDeliveredDisplay(true);
     }
-  }, [order]);
+    if (mounted.current && order.products && order.products.length === 0) {
+      getSalesFromCustomer(userId).then((response) => setOrder(response[orderId - 1]));
+    }
+  }, [order, orderId, userId]);
 
   const receiveOrder = async () => {
     await updateSale({ ...order, status: 'Entregue' });
-    setOrder({ ...order, status: 'Entregue' });
+    setDeliveredDisplay(true);
 
     socket.emit('statusUpdated');
   };
