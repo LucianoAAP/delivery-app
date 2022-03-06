@@ -35,7 +35,7 @@ Este projeto foi um trabalho em grupo desenvolvido por:
 
 ## Pré-requisitos
 
-Este projeto requer o pacote "NPM" e "MySQL"
+Esta aplicação requer o pacote "NPM" e "MySQL"
 
 ## Instalação
 
