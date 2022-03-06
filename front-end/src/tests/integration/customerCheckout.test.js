@@ -5,31 +5,35 @@ import { CustomerCheckout } from '../../pages';
 import { customerUserInfoMock } from './mocks/localStorageMock';
 import usersAPI from './mocks/usersMock';
 import { act } from 'react-dom/test-utils';
+import axios from 'axios';
 import cartItems from './mocks/checkoutMocks';
 import userEvent from '@testing-library/user-event';
-import getUsers from '../../services/getUsers';
-import getSellers from '../../services/getSellers';
-import createSale from '../../services/createSale';
-import getSalesFromCustomer from '../../services/getSalesFromCustomer';
-import sellersMock from './mocks/sellersMock';
 import customerOrdersMock from './mocks/ordersMock';
-jest.mock('../../services/getUsers');
-jest.mock('../../services/getSellers');
-jest.mock('../../services/createSale');
-jest.mock('../../services/getSalesFromCustomer');
+
+jest.mock('socket.io-client', () => jest.fn(() => ({
+  emit: jest.fn(),
+  on: jest.fn(),
+})));
+
+jest.mock("axios", () => ({
+  create: jest.fn().mockReturnThis(),
+  interceptors: {
+    request: { eject: jest.fn(), use: jest.fn() },
+    response: { eject: jest.fn(), use: jest.fn() },
+  },
+  get: jest.fn(() => Promise.resolve()),
+  post: jest.fn(() => Promise.resolve()),
+}));
 
 describe('Testa pagina de checkout do consumidor:', () => {
 
   beforeEach(() => {
-    jest.mock('socket.io-client', () => jest.fn(() => ({
-      emit: jest.fn(),
-      on: jest.fn(),
-    })));
     jest.spyOn(Object.getPrototypeOf(window.localStorage), 'getItem')
       .mockImplementation(customerUserInfoMock);
 
-    getUsers.mockResolvedValue(usersAPI);
-    getSellers.mockResolvedValue(sellersMock);
+    axios.get.mockImplementation((path) => Promise
+      .resolve(path === '/users' ? { data: usersAPI } : { data: customerOrdersMock }));
+    axios.post.mockResolvedValue({ data: customerOrdersMock[0] });
   });
 
   afterEach(() => {
@@ -108,8 +112,6 @@ describe('Testa pagina de checkout do consumidor:', () => {
   describe('Confirmação de compra no formulário', () => {
 
     beforeEach(async () => {
-      createSale.mockResolvedValue({ data: customerOrdersMock[0] });
-      getSalesFromCustomer.mockResolvedValue(customerOrdersMock);
       await act(async () => renderWithReduxAndRouter(
         <CustomerCheckout />,
         { initialState: cartItems }),

@@ -1,18 +1,33 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
+import { act } from 'react-dom/test-utils';
+import userEvent from '@testing-library/user-event';
+import axios from 'axios';
 import renderWithReduxAndRouter from './renderWithReduxAndRouter';
 import usersAPI from './mocks/usersMock';
+import newUserMock from './mocks/newUserMock';
 import { admUserInfoMock } from './mocks/localStorageMock';
-import getUsers from '../../services/getUsers';
 import AdmScreen from '../../pages/AdmScreen';
-jest.mock('../../services/getUsers');
+
+jest.mock("axios", () => ({
+  create: jest.fn().mockReturnThis(),
+  interceptors: {
+    request: { eject: jest.fn(), use: jest.fn() },
+    response: { eject: jest.fn(), use: jest.fn() },
+  },
+  get: jest.fn(() => Promise.resolve()),
+  post: jest.fn(() => Promise.resolve()),
+  delete: jest.fn(() => Promise.resolve()),
+}));
 
 describe('Testa página de <AdmScreen />', () => {
   beforeEach(async () => {
     jest.spyOn(Object.getPrototypeOf(window.localStorage), 'getItem')
       .mockImplementation(admUserInfoMock);
 
-    getUsers.mockResolvedValue(usersAPI);
+    axios.get.mockResolvedValue({ data: usersAPI });
+    axios.post.mockResolvedValue({ data: newUserMock });
+    axios.delete.mockResolvedValue({ data: true });
     renderWithReduxAndRouter(<AdmScreen />);
   });
 
@@ -49,7 +64,7 @@ describe('Testa página de <AdmScreen />', () => {
     expect(newUserPassword).toBeInTheDocument();
     const newUserRole = screen.getByLabelText('Função');
     expect(newUserRole).toBeInTheDocument();
-    const registerButton = screen.getByTestId('admin_manage__element-invalid-register');
+    const registerButton = screen.getByTestId('admin_manage__button-register');
     expect(registerButton).toBeInTheDocument();
   });
 
@@ -109,5 +124,40 @@ describe('Testa página de <AdmScreen />', () => {
     const removeButton3 = screen.getByTestId('admin_manage__element-user-table-remove-2');
     expect(removeButton3).toBeInTheDocument();
     expect(removeButton3.innerHTML).toContain('Excluir');
+  });
+
+  it('Testa excluir usuário', () => {
+    const removeButton3 = screen.getByTestId('admin_manage__element-user-table-remove-2');
+    userEvent.click(removeButton3);
+    expect(axios.delete).toHaveBeenCalled();
+  });
+
+  it('Testa criar usuário', async () => {
+    const newUserName = screen.getByLabelText('Nome');
+    const newUserEmail = screen.getByLabelText('Email');
+    const newUserPassword = screen.getByLabelText('Senha');
+    const newUserRole = screen.getByLabelText('Função');
+    const registerButton = screen.getByTestId('admin_manage__button-register');
+    userEvent.type(newUserName, newUserMock.name);
+    userEvent.type(newUserEmail, newUserMock.email);
+    userEvent.type(newUserPassword, newUserMock.password);
+    userEvent.selectOptions(newUserRole, 'Cliente');
+    await act(async () => userEvent.click(registerButton));
+    expect(axios.post).toHaveBeenCalled();
+    const userNumber4 = screen.getByTestId('admin_manage__element-user-table-item-number-3');
+    expect(userNumber4).toBeInTheDocument();
+    expect(userNumber4.innerHTML).toBe('4');
+    const userName4 = screen.getByTestId('admin_manage__element-user-table-name-3');
+    expect(userName4).toBeInTheDocument();
+    expect(userName4.innerHTML).toBe(newUserMock.name);
+    const userEmail4 = screen.getByTestId('admin_manage__element-user-table-email-3');
+    expect(userEmail4).toBeInTheDocument();
+    expect(userEmail4.innerHTML).toBe(newUserMock.email);
+    const userRole4 = screen.getByTestId('admin_manage__element-user-table-role-3');
+    expect(userRole4).toBeInTheDocument();
+    expect(userRole4.innerHTML).toBe(newUserMock.role);
+    const removeButton4 = screen.getByTestId('admin_manage__element-user-table-remove-3');
+    expect(removeButton4).toBeInTheDocument();
+    expect(removeButton4.innerHTML).toContain('Excluir');
   });
 });

@@ -2,33 +2,39 @@ import React from 'react';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
+import axios from 'axios';
 import renderWithReduxAndRouter from './renderWithReduxAndRouter';
 import App from '../../App';
 import usersAPI from './mocks/usersMock';
 import productMock from './mocks/productMock';
 import customerOrdersMock from './mocks/ordersMock';
 import { customerUserInfoMock } from './mocks/localStorageMock';
-import getUsers from '../../services/getUsers';
-import getProducts from '../../services/getProducts';
-import getSalesFromCustomer from '../../services/getSalesFromCustomer';
-import updateSale from '../../services/updateSale';
-jest.mock('../../services/getUsers');
-jest.mock('../../services/getProducts');
-jest.mock('../../services/getSalesFromCustomer');
-jest.mock('../../services/updateSale');
+
+jest.mock('socket.io-client', () => jest.fn(() => ({
+  emit: jest.fn(),
+  on: jest.fn(),
+})));
+
+jest.mock("axios", () => ({
+  create: jest.fn().mockReturnThis(),
+  interceptors: {
+    request: { eject: jest.fn(), use: jest.fn() },
+    response: { eject: jest.fn(), use: jest.fn() },
+  },
+  get: jest.fn(() => Promise.resolve()),
+  put: jest.fn(() => Promise.resolve()),
+}));
 
 describe('Testa CustomerOrderDetails', () => {
   beforeEach(() => {
-    jest.mock('socket.io-client', () => jest.fn(() => ({
-      emit: jest.fn(),
-      on: jest.fn(),
-    })));
     jest.spyOn(Object.getPrototypeOf(window.localStorage), 'getItem')
       .mockImplementation(customerUserInfoMock);
-    getUsers.mockResolvedValue(usersAPI);
-    getProducts.mockResolvedValue(productMock);
-    getSalesFromCustomer.mockResolvedValue(customerOrdersMock);
-    updateSale.mockImplementation(() => true);
+    axios.get.mockImplementation((path) => {
+      if (path === '/users') return Promise.resolve({ data: usersAPI });
+      if (path === '/products') return Promise.resolve({ data: productMock });
+      return Promise.resolve({ data: customerOrdersMock });
+    });
+    axios.put.mockResolvedValue({ data: true });
   });
 
   afterEach(() => {
@@ -183,7 +189,11 @@ describe('Testa CustomerOrderDetails', () => {
 
   it('Testa atualização de status', async () => {
     const sentOrder = { ...customerOrdersMock[0], status: 'Em Trânsito' };
-    getSalesFromCustomer.mockResolvedValue([sentOrder]);
+    axios.get.mockImplementation((path) => {
+      if (path === '/users') return Promise.resolve({ data: usersAPI });
+      if (path === '/products') return Promise.resolve({ data: productMock });
+      return Promise.resolve({ data: [sentOrder] });
+    });
     renderWithReduxAndRouter(<App />);
     const customerOrdersNav = screen
       .getByTestId('customer_products__element-navbar-link-orders');
@@ -195,6 +205,6 @@ describe('Testa CustomerOrderDetails', () => {
     const receiveButton = await screen
       .findByTestId('customer_order_details__button-delivery-check');
     await act(async () => userEvent.click(receiveButton));
-    expect(updateSale).toHaveBeenCalled();
+    expect(axios.put).toHaveBeenCalled();
   });
 });

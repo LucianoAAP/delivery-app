@@ -22,9 +22,8 @@ describe('Testa pagina de produtos do consumidor:', () => {
   beforeEach(() => {
     jest.spyOn(Object.getPrototypeOf(window.localStorage), 'getItem')
       .mockImplementation(customerUserInfoMock);
-    axios.get.mockImplementation((path) => {
-      return Promise.resolve(path === '/users' ? { data: usersAPI } : { data: productMock });
-    });
+    axios.get.mockImplementation((path) => Promise
+      .resolve(path === '/users' ? { data: usersAPI } : { data: productMock }));
   });
 
   afterAll(() => {

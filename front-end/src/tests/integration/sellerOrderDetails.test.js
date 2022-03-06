@@ -2,29 +2,39 @@ import React from 'react';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
+import axios from 'axios';
 import renderWithReduxAndRouter from './renderWithReduxAndRouter';
 import App from '../../App';
 import usersAPI from './mocks/usersMock';
+import productMock from './mocks/productMock';
 import sellerOrdersMock from './mocks/ordersMock';
 import { sellerUserInfoMock } from './mocks/localStorageMock';
-import getUsers from '../../services/getUsers';
-import getSalesFromSeller from '../../services/getSalesFromSeller';
-import updateSale from '../../services/updateSale';
-jest.mock('../../services/getUsers');
-jest.mock('../../services/getSalesFromSeller');
-jest.mock('../../services/updateSale');
+
+jest.mock('socket.io-client', () => jest.fn(() => ({
+  emit: jest.fn(),
+  on: jest.fn(),
+})));
+
+jest.mock("axios", () => ({
+  create: jest.fn().mockReturnThis(),
+  interceptors: {
+    request: { eject: jest.fn(), use: jest.fn() },
+    response: { eject: jest.fn(), use: jest.fn() },
+  },
+  get: jest.fn(() => Promise.resolve()),
+  put: jest.fn(() => Promise.resolve()),
+}));
 
 describe('Testa SellerOrderDetails', () => {
   beforeEach(() => {
-    jest.mock('socket.io-client', () => jest.fn(() => ({
-      emit: jest.fn(),
-      on: jest.fn(),
-    })));
     jest.spyOn(Object.getPrototypeOf(window.localStorage), 'getItem')
       .mockImplementation(sellerUserInfoMock);
-    getUsers.mockResolvedValue(usersAPI);
-    getSalesFromSeller.mockResolvedValue(sellerOrdersMock);
-    updateSale.mockImplementation(() => true);
+    axios.get.mockImplementation((path) => {
+      if (path === '/users') return Promise.resolve({ data: usersAPI });
+      if (path === '/products') return Promise.resolve({ data: productMock });
+      return Promise.resolve({ data: sellerOrdersMock });
+    });
+    axios.put.mockResolvedValue({ data: true });
   });
 
   afterEach(() => {
@@ -186,12 +196,16 @@ describe('Testa SellerOrderDetails', () => {
     const prepareButton = await screen
       .findByTestId('seller_order_details__button-preparing-check');
     await act(async () => userEvent.click(prepareButton));
-    expect(updateSale).toHaveBeenCalled();
+    expect(axios.put).toHaveBeenCalled();
   });
 
   it('Testa mandar para entrega', async () => {
     const preparingOrder = { ...sellerOrdersMock[0], status: 'Preparando' };
-    getSalesFromSeller.mockResolvedValue([preparingOrder]);
+    axios.get.mockImplementation((path) => {
+      if (path === '/users') return Promise.resolve({ data: usersAPI });
+      if (path === '/products') return Promise.resolve({ data: productMock });
+      return Promise.resolve({ data: [preparingOrder] });
+    });
     renderWithReduxAndRouter(<App />);
     const sellerOrdersNav = screen
       .getByTestId('customer_products__element-navbar-link-orders');
@@ -203,6 +217,6 @@ describe('Testa SellerOrderDetails', () => {
     const sendButton = await screen
       .findByTestId('seller_order_details__button-dispatch-check');
     await act(async () => userEvent.click(sendButton));
-    expect(updateSale).toHaveBeenCalled();
+    expect(axios.put).toHaveBeenCalled();
   });
 });

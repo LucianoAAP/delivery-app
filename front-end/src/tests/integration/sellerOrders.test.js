@@ -26,10 +26,8 @@ describe('Testa SellerOrders', () => {
   beforeEach(async () => {
     jest.spyOn(Object.getPrototypeOf(window.localStorage), 'getItem')
       .mockImplementation(sellerUserInfoMock);
-    axios.get.mockImplementation((path) => {
-      return Promise
-        .resolve(path === '/users' ? { data: usersAPI } : { data: sellerOrdersMock });
-    });
+    axios.get.mockImplementation((path) => Promise
+      .resolve(path === '/users' ? { data: usersAPI } : { data: sellerOrdersMock }));
     await act(async () => renderWithReduxAndRouter(<SellerOrders />));
   });
 
