@@ -94,6 +94,8 @@ Para ver a cobertura, rode o comando `npm run test:coverage`
 # Próximos passos
 
 - Acompanhamento em tempo real da tela do administrador via socket
+- Tela para "página não encontrada"
+- Menu para telas pequenas
 - Deploy no Heroku
 
 # Contato
