@@ -71,7 +71,7 @@ Esta aplicação requer o pacote "NPM" e "MySQL"
 7. Inicie o front-end:
 - `npm start`
 
-# Testando a aplicação!
+# Testando a aplicação
 
 ## Testando o back-end
 
